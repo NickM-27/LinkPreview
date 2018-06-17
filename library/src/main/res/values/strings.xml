@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LinkPreview</string>
+    <string name="description_link">Image preview of link</string>
+</resources>
