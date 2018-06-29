@@ -1,7 +1,7 @@
 # LinkPreview
 A convenient library to show clickable previews of links.
 
-![Alt text](/sample.png?raw=true "Optional Title")
+![Alt text](/sample.png?raw=true "Optional Title" width=1600 height=900)
 
 # Features
 
