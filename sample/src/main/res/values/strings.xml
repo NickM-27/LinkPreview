@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Sample</string>
     <string name="content_description">Content Description</string>
+    <string name="hint_link_search">Insert a link (can be text that contains a link)</string>
 </resources>

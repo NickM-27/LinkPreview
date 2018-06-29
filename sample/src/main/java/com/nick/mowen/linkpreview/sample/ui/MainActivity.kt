@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import com.nick.mowen.linkpreview.sample.R
 import com.nick.mowen.linkpreview.view.LinkPreview
@@ -28,6 +29,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onSuccess(link: String) {
+
+            }
+        }
+        preview.clickListener = object : LinkClickListener {
+            override fun onLinkClicked(view: View?, url: String) {
 
             }
         }
