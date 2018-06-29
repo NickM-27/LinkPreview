@@ -3,8 +3,8 @@ A convenient library to show clickable previews of links.
 
 # Features
 
-* Parse entire body of text to automatically find links
-* Find links from different sources and open them in the appropriate app, falling back to a custom tab if none is found
+* Parse entire body of text to automatically find links.
+* Find links from different sources and open them in the appropriate app, falling back to a custom tab if none is found.
 
 # How Do I Use It?
 
