@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         search = findViewById(R.id.url)
         preview = findViewById(R.id.preview)
         preview.articleColor = ContextCompat.getColor(this, R.color.colorPrimary)
-        preview.listener = object : LinkListener {
+        preview.loadListener = object : LinkListener {
 
             override fun onError() {
                 Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
