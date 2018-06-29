@@ -1,5 +1,5 @@
 # LinkPreview
-A convenient library to show clickable previews of links
+A convenient library to show clickable previews of links.
 
 # Features
 
@@ -67,12 +67,55 @@ preview.articleColor = ContextCompat.getColor(this, R.color.colorPrimary) //Set 
 //Use the load listener if you want to take extra action when a link error or success occurs
 preview.loadListener = object : LinkListener {
 
-            override fun onError() {
-                Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onSuccess(link: String) {
-
-            }
+        override fun onError() {
+            Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
         }
+
+        override fun onSuccess(link: String) {
+
+        }
+}
 ```
+
+### Advanced Usage
+
+You can override the LinkPreview clicklistener all together using the click listener
+```
+preview.clickListener = object : LinkClickListener {
+
+        override fun onLinkClicked(view: View?, url: String) {
+                
+        }
+}
+```
+
+Appications using LinkPreview
+---
+
+Please [email](mailto:nick@nicknackdevelopment.com) me or send a pull request if you would like to be added here.
+
+Developed By
+---
+Nick Mowen - <nick@nicknackdevelopment.com>
+
+Contributions
+-------
+
+Any contributions are welcome!
+
+License
+---
+
+    Copyright 2018 Nick Nack Developments
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
