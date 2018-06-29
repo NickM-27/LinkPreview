@@ -182,13 +182,6 @@ class LinkPreview : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * Allows custom handling of
-     */
-    fun setLinkClickListener(listener: View.OnClickListener) {
-        this.setOnClickListener(listener)
-    }
-
-    /**
      * Async task to find and load the url to the image itself, found from the article url
      */
     private class ArticleLoadTask(preview: LinkPreview, private val linkMap: HashMap<Int, String>, private val key: Int, private val listener: LinkListener?) : AsyncTask<String, Void, String>() {
