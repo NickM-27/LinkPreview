@@ -30,7 +30,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //App library
-    implementation project(':library')
+    implementation project(':linkpreview')
 
     //Testing Libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
