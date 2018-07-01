@@ -1,6 +1,8 @@
 # LinkPreview
 A convenient library to show clickable previews of links.
 
+<img src="/sample.png" width="32%">
+
 # Features
 
 * Parse entire body of text to automatically find links.
