@@ -3,8 +3,6 @@ A convenient library to show clickable previews of links.
 
 <img src="/sample.png" width="32%">
 
-![Alt text](?raw=true "Optional Title" | width=1600 height=900)
-
 # Features
 
 * Parse entire body of text to automatically find links.
