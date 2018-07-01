@@ -210,6 +210,13 @@ class LinkPreview : FrameLayout, View.OnClickListener {
                     }
                     ""
                 }
+            } catch (e: IndexOutOfBoundsException) {
+                e.printStackTrace()
+                linkMap[key] = "Fail"
+                preview.get()?.post {
+                    listener?.onError()
+                }
+                ""
             } catch (e: Exception) {
                 e.printStackTrace()
                 linkMap[key] = "Fail"

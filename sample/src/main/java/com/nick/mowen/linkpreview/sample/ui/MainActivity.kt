@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
      * @param view of search icon
      */
     fun tryText(@Suppress("UNUSED_PARAMETER") view: View?) {
-        preview.parseTextForLink(search.text.toString())
+        if (search.text.toString().indexOf(' ') == -1)
+            preview.setLink(search.text.toString())
+        else
+            preview.parseTextForLink(search.text.toString())
     }
 }

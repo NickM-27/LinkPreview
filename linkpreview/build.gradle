@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
@@ -26,11 +25,8 @@ dependencies {
     implementation 'androidx.browser:browser:1.0.0-alpha3'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     implementation 'org.jsoup:jsoup:1.11.2'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    //Annotation Processors
-    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     //Testing libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
@@ -45,7 +41,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '1.0.3'
+    libraryVersion = '1.0.4'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'
