@@ -35,7 +35,7 @@ repositories {
 
 ### Add to your layout
 
-```
+```xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -54,7 +54,7 @@ repositories {
 
 ### Create And Setup The View
 
-```
+```kotlin
 val preview: LinkPreview = findViewById(R.id.preview)
 ...
 preview.parseTextForLink(string) //Use LinkPreview$parseTextForLink if you have a body of text that contains more than just the link
@@ -63,7 +63,7 @@ preview.setLink(linkString) //Use when you have a string that contains only the 
 
 ### Customize The View
 
-```
+```kotlin
 preview.articleColor = ContextCompat.getColor(this, R.color.colorPrimary) //Set the color of the custom tab that is launched on link press
 
 //Use the load listener if you want to take extra action when a link error or success occurs
@@ -82,7 +82,7 @@ preview.loadListener = object : LinkListener {
 ### Advanced Usage
 
 You can override the LinkPreview clicklistener all together using the click listener
-```
+```kotlin
 preview.clickListener = object : LinkClickListener {
 
         override fun onLinkClicked(view: View?, url: String) {
