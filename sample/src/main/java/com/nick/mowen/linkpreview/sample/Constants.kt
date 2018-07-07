@@ -1,2 +1,5 @@
-package com.nick.mowen.linkpreview
+package com.nick.mowen.linkpreview.sample
 
+object Constants {
+
+}

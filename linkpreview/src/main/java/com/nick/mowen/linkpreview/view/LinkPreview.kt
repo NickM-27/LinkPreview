@@ -47,9 +47,13 @@ class LinkPreview : FrameLayout, View.OnClickListener {
     }
 
     private fun bindViews(context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.view, this)
+        val view = LayoutInflater.from(context).inflate(R.layout.preview, this)
         minimumHeight = view.minimumHeight
         minimumWidth = view.minimumWidth
+
+        if (isInEditMode)
+            return
+
         visibility = View.GONE
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)

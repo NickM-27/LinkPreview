@@ -18,7 +18,7 @@ On your module's `build.gradle` file add this statement to the `dependencies` se
 
 ```groovy
 dependencies {
-  implementation 'com.nick.mowen.linkpreview:linkpreview:1.0.5'
+    implementation 'com.nick.mowen.linkpreview:linkpreview:1.0.6'
 }
 ```
 
@@ -26,8 +26,8 @@ Also make sure that the `repositories` section includes both jcenter and `maven`
 
 ```groovy
 repositories {
-  jcenter()
-  google()
+    jcenter()
+    google()
 }
 ```
 
@@ -69,13 +69,13 @@ preview.articleColor = ContextCompat.getColor(this, R.color.colorPrimary) //Set 
 //Use the load listener if you want to take extra action when a link error or success occurs
 preview.loadListener = object : LinkListener {
 
-        override fun onError() {
-            Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
-        }
+    override fun onError() {
+        Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
+    }
 
-        override fun onSuccess(link: String) {
+    override fun onSuccess(link: String) {
 
-        }
+    }
 }
 ```
 
