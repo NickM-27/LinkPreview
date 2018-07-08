@@ -96,6 +96,10 @@ Appications using LinkPreview
 
 Please [email](mailto:nick@nicknackdevelopment.com) me or send a pull request if you would like to be added here.
 
+Also Seen On
+---
+![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-LinkPreview-green.svg?style=flat)
+
 Developed By
 ---
 Nick Mowen - <nick@nicknackdevelopment.com>
