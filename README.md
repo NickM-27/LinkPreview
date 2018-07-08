@@ -93,6 +93,9 @@ preview.clickListener = object : LinkClickListener {
 
 Appications using LinkPreview
 ---
+Icon | Application
+------------ | -------------
+<img src="https://github.com/NickM-27/Texpert/blob/master/app/src/main/res/mipmap-hdpi/ic_launcher.png" width="48" height="48" /> | [Ameba Ownd](https://play.google.com/store/apps/details?id=jp.co.cyberagent.madrid)
 
 Please [email](mailto:nick@nicknackdevelopment.com) me or send a pull request if you would like to be added here.
 
