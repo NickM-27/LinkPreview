@@ -16,7 +16,9 @@ import androidx.browser.customtabs.CustomTabsIntent
 import com.bumptech.glide.Glide
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
+import com.nick.mowen.linkpreview.extension.addLink
 import com.nick.mowen.linkpreview.extension.isUrl
+import com.nick.mowen.linkpreview.extension.loadLinkMap
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import org.jsoup.Jsoup
@@ -58,7 +60,10 @@ class LinkPreview : FrameLayout, View.OnClickListener {
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)
-        //TODO get link hashmap
+
+        Thread(Runnable {
+            linkMap = context.loadLinkMap()
+        }).start()
     }
 
     /**
@@ -108,7 +113,7 @@ class LinkPreview : FrameLayout, View.OnClickListener {
                 val id = url.split("v=")[1].split(" ")[0]
                 val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
                 imageType = ImageType.YOUTUBE
-                linkMap[url.hashCode()] = imageUrl
+                context.addLink(url, imageUrl)
                 setImageData(imageUrl)
             } else {
                 try {
@@ -132,6 +137,11 @@ class LinkPreview : FrameLayout, View.OnClickListener {
      * @param link to image url
      */
     private fun setImageData(link: String) {
+        if (!linkMap.containsKey(url.hashCode())) {
+            linkMap[url.hashCode()] = link
+            context.addLink(url, link)
+        }
+
         Glide.with(context).load(link).into(image)
         text.text = url
 
@@ -239,7 +249,6 @@ class LinkPreview : FrameLayout, View.OnClickListener {
         override fun onPostExecute(result: String?) {
             try {
                 if (result != null && result.isNotEmpty()) {
-                    linkMap[key] = result
                     preview.get()?.setImageData(result)
                     listener?.onSuccess(result)
                 } else {
