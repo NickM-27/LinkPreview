@@ -29,12 +29,12 @@ class LinkPreview : FrameLayout, View.OnClickListener {
 
     private lateinit var image: ImageView
     private lateinit var text: TextView
-    private var linkMap: HashMap<Int, String> = hashMapOf()
-    private var imageType = ImageType.NONE
-    private var url = ""
-    var loadListener: LinkListener? = null
-    var clickListener: LinkClickListener? = null
-    var articleColor: Int = Color.CYAN
+    private var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
+    private var imageType = ImageType.NONE /** Type of image to handle in specific way */
+    private var url = "" /** Parsed URL */
+    var loadListener: LinkListener? = null /** Optional listener for load callbacks */
+    var clickListener: LinkClickListener? = null /** Optional click listener to override click behavior */
+    var articleColor: Int = Color.CYAN /** Color of the Chrome CustomTab that is launched on view click */
 
     constructor(context: Context) : super(context) {
         bindViews(context)
