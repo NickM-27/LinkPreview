@@ -48,6 +48,11 @@ class LinkPreview : FrameLayout, View.OnClickListener {
         bindViews(context)
     }
 
+    /**
+     * Convenience method to add views to layout
+     *
+     * @param context for inflating view
+     */
     private fun bindViews(context: Context) {
         val view = LayoutInflater.from(context).inflate(R.layout.preview, this)
         minimumHeight = view.minimumHeight
@@ -197,6 +202,11 @@ class LinkPreview : FrameLayout, View.OnClickListener {
 
     /**
      * Async task to find and load the url to the image itself, found from the article url
+     *
+     * @param preview to create [WeakReference] to update once image is found
+     * @param linkMap to update if image could not be found
+     * @param key to update [HashMap] correctly
+     * @param listener to update if not null
      */
     private class ArticleLoadTask(preview: LinkPreview, private val linkMap: HashMap<Int, String>, private val key: Int, private val listener: LinkListener?) : AsyncTask<String, Void, String>() {
 
