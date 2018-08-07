@@ -29,8 +29,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var image: ImageView
     protected lateinit var text: TextView
-    protected var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
-    protected var imageType = ImageType.NONE /** Type of image to handle in specific way */
+    private var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
+    private var imageType = ImageType.NONE /** Type of image to handle in specific way */
     protected var url = "" /** Parsed URL */
     var loadListener: LinkListener? = null /** Optional listener for load callbacks */
     var clickListener: LinkClickListener? = null /** Optional click listener to override click behavior */
@@ -105,7 +105,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     /**
      * Sets the actual text of the view handling multiple types of images including the link cache
      */
-    protected fun setText() {
+    private fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
             val code = linkMap[url.hashCode()]
 
