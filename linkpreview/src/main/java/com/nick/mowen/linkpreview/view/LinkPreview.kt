@@ -25,13 +25,13 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.lang.ref.WeakReference
 
-class LinkPreview : FrameLayout, View.OnClickListener {
+open class LinkPreview : FrameLayout, View.OnClickListener {
 
-    private lateinit var image: ImageView
-    private lateinit var text: TextView
-    private var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
-    private var imageType = ImageType.NONE /** Type of image to handle in specific way */
-    private var url = "" /** Parsed URL */
+    protected lateinit var image: ImageView
+    protected lateinit var text: TextView
+    protected var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
+    protected var imageType = ImageType.NONE /** Type of image to handle in specific way */
+    protected var url = "" /** Parsed URL */
     var loadListener: LinkListener? = null /** Optional listener for load callbacks */
     var clickListener: LinkClickListener? = null /** Optional click listener to override click behavior */
     var articleColor: Int = Color.CYAN /** Color of the Chrome CustomTab that is launched on view click */
@@ -105,7 +105,7 @@ class LinkPreview : FrameLayout, View.OnClickListener {
     /**
      * Sets the actual text of the view handling multiple types of images including the link cache
      */
-    private fun setText() {
+    protected fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
             val code = linkMap[url.hashCode()]
 
@@ -141,7 +141,7 @@ class LinkPreview : FrameLayout, View.OnClickListener {
      *
      * @param link to image url
      */
-    private fun setImageData(link: String) {
+    protected fun setImageData(link: String) {
         if (!linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()] = link
             context.addLink(url, link)
@@ -208,7 +208,7 @@ class LinkPreview : FrameLayout, View.OnClickListener {
      * @param key to update [HashMap] correctly
      * @param listener to update if not null
      */
-    private class ArticleLoadTask(preview: LinkPreview, private val linkMap: HashMap<Int, String>, private val key: Int, private val listener: LinkListener?) : AsyncTask<String, Void, String>() {
+    protected class ArticleLoadTask(preview: LinkPreview, private val linkMap: HashMap<Int, String>, private val key: Int, private val listener: LinkListener?) : AsyncTask<String, Void, String>() {
 
         private val preview = WeakReference(preview)
 
