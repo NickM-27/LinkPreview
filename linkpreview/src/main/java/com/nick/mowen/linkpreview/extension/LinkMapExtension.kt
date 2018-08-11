@@ -9,10 +9,10 @@ import com.nick.mowen.linkpreview.Constants
 fun Context.loadLinkMap(): HashMap<Int, String> {
     val map = hashMapOf<Int, String>()
     val prefs = getSharedPreferences(Constants.MAP_PREFERENCES, Context.MODE_PRIVATE)
-    val hashSet = prefs.getStringSet("HASH", hashSetOf())
+    val hashSet = prefs.getStringSet("HASH", null) ?: return map
 
     for (hash in hashSet)
-        map[hash.toInt()] = prefs.getString(hash, "")
+        map[hash.toInt()] = prefs.getString(hash, "") ?: ""
 
     return map
 }
@@ -26,7 +26,7 @@ fun Context.loadLinkMap(): HashMap<Int, String> {
 fun Context.addLink(hashed: String, image: String) {
     Thread(Runnable {
         val prefs = getSharedPreferences(Constants.MAP_PREFERENCES, Context.MODE_PRIVATE)
-        val current = prefs.getStringSet("HASH", hashSetOf())
+        val current = prefs.getStringSet("HASH", hashSetOf()) ?: hashSetOf()
         prefs.edit().apply {
             val hash = hashed.hashCode().toString()
             putString(hash, image)
