@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
@@ -89,13 +90,13 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                             .build()
 
                     try {
-                        chromeTab.launchUrl(context, Uri.parse(url))
+                        chromeTab.launchUrl(context, url.toUri())
                     } catch (e: Exception) {
                         //context.showToast("Could not open article")
                         e.printStackTrace()
                     }
                 }
-                ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                 else -> {
                 }
             }
