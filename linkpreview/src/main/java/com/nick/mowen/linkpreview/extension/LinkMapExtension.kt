@@ -1,6 +1,7 @@
 package com.nick.mowen.linkpreview.extension
 
 import android.content.Context
+import androidx.core.content.edit
 import com.nick.mowen.linkpreview.Constants
 
 /**
@@ -27,11 +28,10 @@ fun Context.addLink(hashed: String, image: String) {
     Thread(Runnable {
         val prefs = getSharedPreferences(Constants.MAP_PREFERENCES, Context.MODE_PRIVATE)
         val current = prefs.getStringSet("HASH", hashSetOf()) ?: hashSetOf()
-        prefs.edit().apply {
+        prefs.edit {
             val hash = hashed.hashCode().toString()
             putString(hash, image)
             putStringSet("HASH", current.plus(hash))
-            apply()
         }
     }).start()
 }
