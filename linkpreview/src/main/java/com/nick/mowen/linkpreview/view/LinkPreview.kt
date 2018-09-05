@@ -3,7 +3,6 @@ package com.nick.mowen.linkpreview.view
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.AsyncTask
 import android.util.AttributeSet
 import android.util.Log
@@ -30,12 +29,19 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var image: ImageView
     protected lateinit var text: TextView
-    private var linkMap: HashMap<Int, String> = hashMapOf() /** Map of cached links and their image url */
-    private var imageType = ImageType.NONE /** Type of image to handle in specific way */
-    protected var url = "" /** Parsed URL */
-    var loadListener: LinkListener? = null /** Optional listener for load callbacks */
-    var clickListener: LinkClickListener? = null /** Optional click listener to override click behavior */
-    var articleColor: Int = Color.CYAN /** Color of the Chrome CustomTab that is launched on view click */
+    private var linkMap: HashMap<Int, String> = hashMapOf()
+    /** Map of cached links and their image url */
+    private var imageType = ImageType.NONE
+    /** Type of image to handle in specific way */
+    protected var url = ""
+    /** Parsed URL */
+    var loadListener: LinkListener? = null
+    /** Optional listener for load callbacks */
+    var clickListener: LinkClickListener? = null
+    /** Optional click listener to override click behavior */
+    var articleColor: Int = Color.CYAN
+
+    /** Color of the Chrome CustomTab that is launched on view click */
 
     constructor(context: Context) : super(context) {
         bindViews(context)
@@ -115,7 +121,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                 setImageData(code)
             }
         } else {
-            if (url.contains("youtube")) {
+            if (url.let { it.contains("youtube") && it.contains("v=") }) {
                 val id = url.split("v=")[1].split(" ")[0]
                 val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
                 imageType = ImageType.YOUTUBE
