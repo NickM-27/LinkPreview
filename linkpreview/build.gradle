@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 10
-        versionName "1.1.2"
+        versionCode 11
+        versionName "1.1.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,8 +23,8 @@ android {
 dependencies {
 
     //AndroidX
-    implementation 'androidx.browser:browser:1.0.0-rc01'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.browser:browser:1.0.0-rc02'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //Other
     implementation 'org.jsoup:jsoup:1.11.2'
@@ -32,7 +32,7 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.0.0-rc01'
+    implementation 'androidx.core:core-ktx:1.0.0-rc02'
 
     //Testing libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
@@ -47,7 +47,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '1.1.2'
+    libraryVersion = '1.1.3'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'
