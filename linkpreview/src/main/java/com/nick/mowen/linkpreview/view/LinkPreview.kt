@@ -24,6 +24,7 @@ import com.nick.mowen.linkpreview.listener.LinkListener
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.lang.ref.WeakReference
+import kotlin.concurrent.thread
 
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
@@ -61,9 +62,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param context for inflating view
      */
     private fun bindViews(context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.preview, this)
-        minimumHeight = view.minimumHeight
-        minimumWidth = view.minimumWidth
+        inflate(context, R.layout.preview, this).let {
+            this.minimumHeight = it.minimumHeight
+            this.minimumWidth = it.minimumWidth
+        }
 
         if (isInEditMode)
             return
@@ -72,10 +74,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)
-
-        Thread(Runnable {
-            linkMap = context.loadLinkMap()
-        }).start()
+        thread { linkMap = context.loadLinkMap() }
     }
 
     /**
