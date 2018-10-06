@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import com.nick.mowen.linkpreview.sample.R
+import com.nick.mowen.linkpreview.sample.Utils
 import com.nick.mowen.linkpreview.view.LinkPreview
 
 class MainActivity : AppCompatActivity() {
@@ -49,5 +50,6 @@ class MainActivity : AppCompatActivity() {
             preview.setLink(search.text.toString())
         else
             preview.parseTextForLink(search.text.toString())
+        Utils.hideKeyboard(this@MainActivity)
     }
 }
