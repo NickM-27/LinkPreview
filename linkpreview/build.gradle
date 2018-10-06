@@ -28,7 +28,7 @@ dependencies {
 
     //Other
     implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -36,8 +36,8 @@ dependencies {
 
     //Testing libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 }
 
 ext {
