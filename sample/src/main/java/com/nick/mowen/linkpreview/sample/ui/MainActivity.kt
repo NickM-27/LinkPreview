@@ -46,10 +46,15 @@ class MainActivity : AppCompatActivity() {
      * @param view of search icon
      */
     fun tryText(@Suppress("UNUSED_PARAMETER") view: View?) {
-        if (search.text.toString().indexOf(' ') == -1)
-            preview.setLink(search.text.toString())
-        else
-            preview.parseTextForLink(search.text.toString())
-        Utils.hideKeyboard(this@MainActivity)
+        val enteredSearchString = search.text?.toString()?.trim()
+        if (enteredSearchString.isNullOrBlank()) {
+            Utils.showToast(this@MainActivity.applicationContext, "Please enter link to preview...")
+        } else {
+            if (search.text.toString().indexOf(' ') == -1)
+                preview.setLink(search.text.toString())
+            else
+                preview.parseTextForLink(search.text.toString())
+            Utils.hideKeyboard(this@MainActivity)
+        }
     }
 }
