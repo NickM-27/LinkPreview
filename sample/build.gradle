@@ -27,8 +27,8 @@ android {
 dependencies {
 
     //AndroidX
-    implementation 'com.google.android.material:material:1.0.0-rc01'
-    implementation 'androidx.browser:browser:1.0.0-rc02'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.browser:browser:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //Kotlin
@@ -39,6 +39,6 @@ dependencies {
 
     //Testing Libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 }
