@@ -5,14 +5,6 @@
 #     java -jar proguard.jar @library.pro
 #
 
-# Specify the input jars, output jars, and library jars.
-# In this case, the input jar is the program library that we want to process.
-
--injars  in.jar
--outjars out.jar
-
--libraryjars  <java.home>/lib/rt.jar
-
 # Save the obfuscation mapping to a file, so we can de-obfuscate any stack
 # traces later on. Keep a fixed source file attribute and all line number
 # tables to get line numbers in the stack traces.
@@ -32,6 +24,14 @@
 
 -keep public class * {
     public protected *;
+}
+
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
 }
 
 # Preserve all .class method names.

@@ -19,8 +19,10 @@ import com.nick.mowen.linkpreview.extension.loadImage
 import com.nick.mowen.linkpreview.extension.loadLinkMap
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
-import kotlin.concurrent.thread
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var image: ImageView
@@ -69,7 +71,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)
-        thread { linkMap = context.loadLinkMap() }
+        GlobalScope.launch { linkMap = context.loadLinkMap() }
     }
 
     /**
@@ -84,10 +86,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             when (imageType) {
                 ImageType.DEFAULT -> {
                     val chromeTab = CustomTabsIntent.Builder()
-                            .setToolbarColor(articleColor)
-                            .addDefaultShareMenuItem()
-                            .enableUrlBarHiding()
-                            .build()
+                        .setToolbarColor(articleColor)
+                        .addDefaultShareMenuItem()
+                        .enableUrlBarHiding()
+                        .build()
 
                     try {
                         chromeTab.launchUrl(context, url.toUri())

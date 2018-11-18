@@ -4,13 +4,20 @@ import android.util.Log
 import android.view.View
 import com.nick.mowen.linkpreview.listener.LinkListener
 import com.nick.mowen.linkpreview.view.LinkPreview
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import kotlin.concurrent.thread
 
-fun LinkPreview.loadImage(link: String, linkMap: HashMap<Int, String>, key: Int, listener: LinkListener?) {
+fun LinkPreview.loadImage(
+    link: String,
+    linkMap: HashMap<Int, String>,
+    key: Int,
+    listener: LinkListener?
+) {
     try {
-        thread {
+        GlobalScope.launch {
             val result = try {
                 val connection = Jsoup.connect(link).userAgent("Mozilla")
                 val doc: Document = connection.get()
@@ -20,28 +27,22 @@ fun LinkPreview.loadImage(link: String, linkMap: HashMap<Int, String>, key: Int,
                     imageElements[0].attr("content")
                 else {
                     linkMap[key] = "Fail"
-                    post {
-                        listener?.onError()
-                    }
+                    launch(Dispatchers.Main) { listener?.onError() }
                     ""
                 }
             } catch (e: IndexOutOfBoundsException) {
                 e.printStackTrace()
                 linkMap[key] = "Fail"
-                post {
-                    listener?.onError()
-                }
+                launch(Dispatchers.Main) { listener?.onError() }
                 ""
             } catch (e: Exception) {
                 e.printStackTrace()
                 linkMap[key] = "Fail"
-                post {
-                    listener?.onError()
-                }
+                launch(Dispatchers.Main) { listener?.onError() }
                 ""
             }
 
-            post {
+            launch(Dispatchers.Main) {
                 try {
                     if (result != null && result.isNotEmpty()) {
                         setImageData(result)
