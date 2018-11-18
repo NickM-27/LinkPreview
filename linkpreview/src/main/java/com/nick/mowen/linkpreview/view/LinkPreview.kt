@@ -3,10 +3,7 @@ package com.nick.mowen.linkpreview.view
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.AsyncTask
 import android.util.AttributeSet
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -18,13 +15,14 @@ import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
 import com.nick.mowen.linkpreview.extension.addLink
 import com.nick.mowen.linkpreview.extension.isUrl
+import com.nick.mowen.linkpreview.extension.loadImage
 import com.nick.mowen.linkpreview.extension.loadLinkMap
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import java.lang.ref.WeakReference
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var image: ImageView
@@ -61,9 +59,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param context for inflating view
      */
     private fun bindViews(context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.preview, this)
-        minimumHeight = view.minimumHeight
-        minimumWidth = view.minimumWidth
+        inflate(context, R.layout.preview, this).let {
+            this.minimumHeight = it.minimumHeight
+            this.minimumWidth = it.minimumWidth
+        }
 
         if (isInEditMode)
             return
@@ -72,10 +71,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)
-
-        Thread(Runnable {
-            linkMap = context.loadLinkMap()
-        }).start()
+        GlobalScope.launch { linkMap = context.loadLinkMap() }
     }
 
     /**
@@ -90,10 +86,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             when (imageType) {
                 ImageType.DEFAULT -> {
                     val chromeTab = CustomTabsIntent.Builder()
-                            .setToolbarColor(articleColor)
-                            .addDefaultShareMenuItem()
-                            .enableUrlBarHiding()
-                            .build()
+                        .setToolbarColor(articleColor)
+                        .addDefaultShareMenuItem()
+                        .enableUrlBarHiding()
+                        .build()
 
                     try {
                         chromeTab.launchUrl(context, url.toUri())
@@ -132,7 +128,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     visibility = View.VISIBLE
                     text.text = url
                     imageType = ImageType.DEFAULT
-                    ArticleLoadTask(this, linkMap, url.hashCode(), loadListener).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url)
+                    loadImage(url, linkMap, url.hashCode(), loadListener)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     imageType = ImageType.NONE
@@ -148,7 +144,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      *
      * @param link to image url
      */
-    protected fun setImageData(link: String) {
+    fun setImageData(link: String) {
         if (!linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()] = link
             context.addLink(url, link)
@@ -205,81 +201,5 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             setText()
         } else
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
-    }
-
-    /**
-     * Async task to find and load the url to the image itself, found from the article url
-     *
-     * @param preview to create [WeakReference] to update once image is found
-     * @param linkMap to update if image could not be found
-     * @param key to update [HashMap] correctly
-     * @param listener to update if not null
-     */
-    protected class ArticleLoadTask(preview: LinkPreview, private val linkMap: HashMap<Int, String>, private val key: Int, private val listener: LinkListener?) : AsyncTask<String, Void, String>() {
-
-        private val preview = WeakReference(preview)
-
-        /**
-         * Loads the article image in the background
-         *
-         * @param strings [0] holds the url to parse
-         * @return parsed image url or "" if exception occurs
-         */
-        override fun doInBackground(vararg strings: String?): String {
-            return try {
-                Log.w("Article Request", "Finding article image")
-                val connection = Jsoup.connect(strings[0]).userAgent("Mozilla")
-                val doc: Document = connection.get()
-                val imageElements = doc.select("meta[property=og:image]")
-
-                if (imageElements.size > 0)
-                    imageElements[0].attr("content")
-                else {
-                    linkMap[key] = "Fail"
-                    preview.get()?.post {
-                        listener?.onError()
-                    }
-                    ""
-                }
-            } catch (e: IndexOutOfBoundsException) {
-                e.printStackTrace()
-                linkMap[key] = "Fail"
-                preview.get()?.post {
-                    listener?.onError()
-                }
-                ""
-            } catch (e: Exception) {
-                e.printStackTrace()
-                linkMap[key] = "Fail"
-                preview.get()?.post {
-                    listener?.onError()
-                }
-                ""
-            }
-        }
-
-        /**
-         * Handle article image setting on ui thread
-         *
-         * @param result parsed image url
-         */
-        override fun onPostExecute(result: String?) {
-            try {
-                if (result != null && result.isNotEmpty()) {
-                    preview.get()?.setImageData(result)
-                    listener?.onSuccess(result)
-                } else {
-                    Log.e("Article Request", "Image url is empty")
-                    preview.get()?.visibility = View.GONE
-                    listener?.onError()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                listener?.onError()
-            } catch (e: IllegalArgumentException) {
-                e.printStackTrace()
-                listener?.onError()
-            }
-        }
     }
 }
