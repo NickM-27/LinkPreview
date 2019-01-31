@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
+import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
@@ -35,6 +36,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     var clickListener: LinkClickListener? = null
     /** Optional click listener to override click behavior */
     var articleColor: Int = Color.CYAN
+    /** Set whether or not to default to hidden while loading preview */
+    var hideWhileLoading = false
 
     /** Color of the Chrome CustomTab that is launched on view click */
 
@@ -68,7 +71,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         if (isInEditMode)
             return
 
-        visibility = View.GONE
+        if (hideWhileLoading)
+            isGone = true
+
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)

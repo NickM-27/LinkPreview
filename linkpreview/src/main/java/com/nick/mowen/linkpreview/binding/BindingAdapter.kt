@@ -7,7 +7,5 @@ object BindingAdapter {
 
     @BindingAdapter("parsedLink")
     @JvmStatic
-    fun setParsedLink(view: LinkPreview, link: String) {
-        view.parseTextForLink(link)
-    }
+    fun setParsedLink(view: LinkPreview, link: String) = view.parseTextForLink(link)
 }
