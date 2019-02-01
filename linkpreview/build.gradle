@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 17
-        versionName "2.2"
+        versionCode 18
+        versionName "2.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,14 +32,15 @@ dependencies {
 
     //Other
     implementation 'org.jsoup:jsoup:1.11.3'
-    //noinspection GradleDependency
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
     implementation 'androidx.core:core-ktx:1.0.1'
+
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
     //Testing libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
@@ -54,7 +55,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '2.2'
+    libraryVersion = '2.3'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'
