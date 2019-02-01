@@ -10,13 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
+import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
-import com.nick.mowen.linkpreview.extension.addLink
-import com.nick.mowen.linkpreview.extension.isUrl
-import com.nick.mowen.linkpreview.extension.loadImage
-import com.nick.mowen.linkpreview.extension.loadLinkMap
+import com.nick.mowen.linkpreview.extension.*
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import kotlinx.coroutines.GlobalScope
@@ -38,6 +36,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     var clickListener: LinkClickListener? = null
     /** Optional click listener to override click behavior */
     var articleColor: Int = Color.CYAN
+    /** Set whether or not to default to hidden while loading preview */
+    var hideWhileLoading = false
 
     /** Color of the Chrome CustomTab that is launched on view click */
 
@@ -49,7 +49,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         bindViews(context)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
         bindViews(context)
     }
 
@@ -67,7 +71,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         if (isInEditMode)
             return
 
-        visibility = View.GONE
+        if (hideWhileLoading)
+            isGone = true
+
         image = findViewById(R.id.preview_image)
         text = findViewById(R.id.preview_text)
         setOnClickListener(this)
@@ -164,28 +170,28 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @return if a link was found in the text
      */
     fun parseTextForLink(text: String): Boolean {
-        when {
+        return when {
             text.contains("youtube") && text.contains("v=") -> {
                 val id = text.split("v=")[1].split(" ")[0]
                 url = "https://www.youtube.com/watch?v=$id"
                 setText()
-                return true
+                true
             }
             text.contains("youtu.be") -> {
                 val id = text.split("be/")[1].split(" ")[0]
                 url = "https://www.youtube.com/watch?v=$id"
                 setText()
-                return true
+                true
             }
             text.contains("http") -> {
-                text.split(" ").filter { it.matches(Regex("https?://(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_+.~#?&/=]*)")) }.forEach { url = it }
+                url = text.parseUrl()
                 setText()
-                return true
+                true
             }
             else -> {
                 imageType = ImageType.NONE
                 visibility = View.GONE
-                return false
+                false
             }
         }
     }
