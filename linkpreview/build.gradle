@@ -54,12 +54,6 @@ dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    // JAX-B dependencies for JDK 9+
-    implementation "javax.xml.bind:jaxb-api:2.2.11"
-    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
-    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
-    implementation "javax.activation:activation:1.1.1"
 }
 
 ext {
