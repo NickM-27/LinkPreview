@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.nick.mowen.linkpreview.sample"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -23,6 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
     dataBinding {
         enabled = true
     }
@@ -30,20 +34,19 @@ android {
 
 dependencies {
 
-    //AndroidX
+    // AndroidX
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.browser:browser:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    //Kotlin
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    //App library
+    // App library
     implementation project(':linkpreview')
 
-    //Testing Libraries
+    // Testing Libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
-
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

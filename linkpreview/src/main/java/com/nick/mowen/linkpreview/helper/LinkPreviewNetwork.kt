@@ -3,8 +3,8 @@ package com.nick.mowen.linkpreview.helper
 import android.content.Context
 import com.nick.mowen.linkpreview.extension.loadLinkMap
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -16,7 +16,7 @@ object LinkPreviewNetwork {
      */
     fun loadImage(context: Context, link: String): String? = runBlocking {
         return@runBlocking try {
-            async(Dispatchers.IO) {
+            withContext(Dispatchers.Default) {
                 val linkMap = context.loadLinkMap()
                 val key = link.hashCode()
 
@@ -40,7 +40,7 @@ object LinkPreviewNetwork {
                     linkMap[key] = "Fail"
                     ""
                 }
-            }.await()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             ""
