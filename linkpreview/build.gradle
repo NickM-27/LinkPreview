@@ -63,7 +63,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '2.4'
+    libraryVersion = '3.0'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'
