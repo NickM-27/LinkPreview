@@ -5,10 +5,10 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 19
         versionName "2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -47,12 +47,19 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2'
 
+    // Annotation Processors
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
-    // Testing libraries
+    // Testing Libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // JAX-B dependencies for JDK 9+
+    implementation "javax.xml.bind:jaxb-api:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+    implementation "javax.activation:activation:1.1.1"
 }
 
 ext {
