@@ -18,7 +18,7 @@ On your module's `build.gradle` file add this statement to the `dependencies` se
 
 ```groovy
 dependencies {
-    implementation 'com.nick.mowen.linkpreview:linkpreview:2.4'
+    implementation 'com.nick.mowen.linkpreview:linkpreview:3.0'
 }
 ```
 
