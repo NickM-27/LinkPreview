@@ -1,0 +1,149 @@
+# compiler: R8
+# compiler_version: 1.5.51
+# pg_map_id: 9d901d3
+androidx.databinding.library.baseAdapters.BR -> androidx.databinding.library.baseAdapters.BR:
+    1:1:void <init>():3:3 -> <init>
+com.nick.mowen.linkpreview.BR -> com.nick.mowen.linkpreview.BR:
+    1:1:void <init>():3:3 -> <init>
+com.nick.mowen.linkpreview.BuildConfig -> com.nick.mowen.linkpreview.BuildConfig:
+    1:1:void <init>():6:6 -> <init>
+com.nick.mowen.linkpreview.Constants -> com.nick.mowen.linkpreview.Constants:
+    1:1:void <clinit>():3:3 -> <clinit>
+    1:1:void <init>():3:3 -> <init>
+com.nick.mowen.linkpreview.DataBinderMapperImpl -> com.nick.mowen.linkpreview.DataBinderMapperImpl:
+    android.util.SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP -> a
+    1:1:void <clinit>():19:19 -> <clinit>
+    1:1:void <init>():18:18 -> <init>
+    1:2:java.util.List collectDependencies():70:71 -> collectDependencies
+    1:1:java.lang.String convertBrIdToString(int):64:64 -> convertBrIdToString
+    1:5:androidx.databinding.ViewDataBinding getDataBinder(androidx.databinding.DataBindingComponent,android.view.View,int):26:30 -> getDataBinder
+    6:13:androidx.databinding.ViewDataBinding getDataBinder(androidx.databinding.DataBindingComponent,android.view.View[],int):38:45 -> getDataBinder
+    1:2:int getLayoutId(java.lang.String):58:59 -> getLayoutId
+com.nick.mowen.linkpreview.DataBinderMapperImpl$InnerBrLookup -> com.nick.mowen.linkpreview.DataBinderMapperImpl$a:
+    android.util.SparseArray sKeys -> a
+    1:4:void <clinit>():76:79 -> <clinit>
+com.nick.mowen.linkpreview.DataBinderMapperImpl$InnerLayoutIdLookup -> com.nick.mowen.linkpreview.DataBinderMapperImpl$b:
+    java.util.HashMap sKeys -> a
+    1:1:void <clinit>():84:84 -> <clinit>
+com.nick.mowen.linkpreview.DataBindingInfo -> com.nick.mowen.linkpreview.DataBindingInfo:
+    1:1:void <init>():6:6 -> <init>
+com.nick.mowen.linkpreview.ImageType -> com.nick.mowen.linkpreview.ImageType:
+    com.nick.mowen.linkpreview.ImageType[] $VALUES -> a
+    1:1:void <init>(java.lang.String,int):6:6 -> <init>
+com.nick.mowen.linkpreview.binding.BindingAdapter -> com.nick.mowen.linkpreview.binding.BindingAdapter:
+    1:1:void <clinit>():6:6 -> <clinit>
+    1:1:void <init>():6:6 -> <init>
+    1:1:boolean setParsedLink(com.nick.mowen.linkpreview.view.LinkPreview,java.lang.String):10:10 -> setParsedLink
+com.nick.mowen.linkpreview.extension.ImageExtensionKt -> com.nick.mowen.linkpreview.extension.ImageExtensionKt:
+    1:46:void loadImage(com.nick.mowen.linkpreview.view.LinkPreview,java.lang.String,java.util.HashMap,int,com.nick.mowen.linkpreview.listener.LinkListener):20:65 -> loadImage
+com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1 -> com.nick.mowen.linkpreview.extension.ImageExtensionKt$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.listener.LinkListener $listener -> g
+    int $key -> f
+    com.nick.mowen.linkpreview.view.LinkPreview $this_loadImage -> c
+    int label -> b
+    java.util.HashMap $linkMap -> e
+    java.lang.String $link -> d
+    1:22:java.lang.Object invokeSuspend(java.lang.Object):20:41 -> invokeSuspend
+    23:52:java.lang.Object invokeSuspend(java.lang.Object):34:63 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1$1 -> com.nick.mowen.linkpreview.extension.ImageExtensionKt$a$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1 this$0 -> c
+    int label -> b
+    java.lang.String $result -> d
+    1:18:java.lang.Object invokeSuspend(java.lang.Object):45:62 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1$result$1 -> com.nick.mowen.linkpreview.extension.ImageExtensionKt$a$b:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1 this$0 -> c
+    int label -> b
+    1:1:java.lang.Object invokeSuspend(java.lang.Object):30:30 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1$result$2 -> com.nick.mowen.linkpreview.extension.ImageExtensionKt$a$c:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1 this$0 -> c
+    int label -> b
+    1:1:java.lang.Object invokeSuspend(java.lang.Object):36:36 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1$result$3 -> com.nick.mowen.linkpreview.extension.ImageExtensionKt$a$d:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.extension.ImageExtensionKt$loadImage$1 this$0 -> c
+    int label -> b
+    1:1:java.lang.Object invokeSuspend(java.lang.Object):41:41 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.LinkMapExtensionKt -> com.nick.mowen.linkpreview.extension.LinkMapExtensionKt:
+    1:1:kotlinx.coroutines.Job addLink(android.content.Context,java.lang.String,java.lang.String):29:29 -> addLink
+    1:6:java.util.HashMap loadLinkMap(android.content.Context):13:18 -> loadLinkMap
+com.nick.mowen.linkpreview.extension.LinkMapExtensionKt$addLink$1 -> com.nick.mowen.linkpreview.extension.LinkMapExtensionKt$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    android.content.Context $this_addLink -> c
+    int label -> b
+    java.lang.String $image -> e
+    java.lang.String $hashed -> d
+    1:14:java.lang.Object invokeSuspend(java.lang.Object):29:42 -> invokeSuspend
+    15:28:java.lang.Object invokeSuspend(java.lang.Object):33:46 -> invokeSuspend
+    29:29:java.lang.Object invokeSuspend(java.lang.Object):37:37 -> invokeSuspend
+com.nick.mowen.linkpreview.extension.UrlExtensionKt -> com.nick.mowen.linkpreview.extension.UrlExtensionKt:
+    1:1:boolean isUrl(java.lang.String):6:6 -> isUrl
+    1:1:java.lang.String parseUrl(java.lang.String):11:11 -> parseUrl
+com.nick.mowen.linkpreview.helper.LinkPreviewNetwork -> com.nick.mowen.linkpreview.helper.LinkPreviewNetwork:
+    1:1:void <clinit>():12:12 -> <clinit>
+    1:1:void <init>():12:12 -> <init>
+    1:1:java.lang.String loadImage(android.content.Context,java.lang.String):17:17 -> loadImage
+com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$loadImage$1 -> com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    java.lang.Object L$0 -> b
+    int label -> c
+    android.content.Context $context -> d
+    java.lang.String $link -> e
+    1:2:java.lang.Object invokeSuspend(java.lang.Object):17:18 -> invokeSuspend
+    3:5:java.lang.Object invokeSuspend(java.lang.Object):17:19 -> invokeSuspend
+    6:34:java.lang.Object invokeSuspend(java.lang.Object):17:45 -> invokeSuspend
+com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$loadImage$1$1 -> com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$a$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$loadImage$1 this$0 -> c
+    int label -> b
+    1:22:java.lang.Object invokeSuspend(java.lang.Object):19:40 -> invokeSuspend
+    23:30:java.lang.Object invokeSuspend(java.lang.Object):35:42 -> invokeSuspend
+com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.LinkPreview:
+    com.nick.mowen.linkpreview.listener.LinkClickListener clickListener -> e
+    com.nick.mowen.linkpreview.listener.LinkListener loadListener -> d
+    int articleColor -> f
+    java.util.HashMap linkMap -> a
+    boolean hideWhileLoading -> g
+    com.nick.mowen.linkpreview.ImageType imageType -> b
+    java.lang.String url -> c
+    1:1:void <init>(android.content.Context):44:44 -> <init>
+    2:19:void <init>(android.content.Context):28:45 -> <init>
+    20:20:void <init>(android.content.Context,android.util.AttributeSet):48:48 -> <init>
+    21:42:void <init>(android.content.Context,android.util.AttributeSet):28:49 -> <init>
+    43:43:void <init>(android.content.Context,android.util.AttributeSet,int):52:52 -> <init>
+    44:73:void <init>(android.content.Context,android.util.AttributeSet,int):28:57 -> <init>
+    1:147:void bindViews(android.content.Context):66:212 -> a
+    148:151:void bindViews(android.content.Context):77:80 -> a
+    152:176:void setText():118:142 -> a
+    1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview):24:24 -> access$getLinkMap$p
+    1:1:void access$setLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview,java.util.HashMap):24:24 -> access$setLinkMap$p
+    1:1:int getArticleColor():38:38 -> getArticleColor
+    1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():36:36 -> getClickListener
+    1:1:boolean getHideWhileLoading():40:40 -> getHideWhileLoading
+    1:1:android.widget.ImageView getImage():26:26 -> getImage
+    1:1:com.nick.mowen.linkpreview.listener.LinkListener getLoadListener():34:34 -> getLoadListener
+    1:1:android.widget.TextView getText():27:27 -> getText
+    1:1:java.lang.String getUrl():32:32 -> getUrl
+    1:127:void onClick(android.view.View):89:215 -> onClick
+    128:128:void onClick(android.view.View):107:107 -> onClick
+    129:249:void onClick(android.view.View):94:214 -> onClick
+    250:253:void onClick(android.view.View):101:104 -> onClick
+    1:20:boolean parseTextForLink(java.lang.String):174:193 -> parseTextForLink
+    1:1:void setArticleColor(int):38:38 -> setArticleColor
+    1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):36:36 -> setClickListener
+    1:1:void setHideWhileLoading(boolean):40:40 -> setHideWhileLoading
+    1:1:void setImage(android.widget.ImageView):26:26 -> setImage
+    1:10:void setImageData(java.lang.String):154:163 -> setImageData
+    1:5:void setLink(java.lang.String):205:209 -> setLink
+    1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.LinkListener):34:34 -> setLoadListener
+    1:1:void setText(android.widget.TextView):27:27 -> setText
+    1:1:void setUrl(java.lang.String):32:32 -> setUrl
+com.nick.mowen.linkpreview.view.LinkPreview$bindViews$2 -> com.nick.mowen.linkpreview.view.LinkPreview$a:
+    kotlinx.coroutines.CoroutineScope p$ -> a
+    com.nick.mowen.linkpreview.view.LinkPreview this$0 -> c
+    int label -> b
+    android.content.Context $context -> d
+    1:1:java.lang.Object invokeSuspend(java.lang.Object):80:80 -> invokeSuspend
