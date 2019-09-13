@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
-import com.bumptech.glide.Glide
+import coil.api.load
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
 import com.nick.mowen.linkpreview.extension.*
@@ -156,7 +156,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             context.addLink(url, link)
         }
 
-        Glide.with(context).load(link).into(image)
+        image.load(link) { crossfade(true) }
         text.text = url
 
         if (visibility != View.VISIBLE)
