@@ -4,16 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
+import androidx.databinding.DataBindingUtil
 import coil.api.load
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
+import com.nick.mowen.linkpreview.databinding.PreviewBinding
 import com.nick.mowen.linkpreview.extension.*
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
@@ -23,23 +24,21 @@ import kotlinx.coroutines.launch
 @Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
-    protected lateinit var image: ImageView
-    protected lateinit var text: TextView
-    private var linkMap: HashMap<Int, String> = hashMapOf()
+    protected lateinit var binding: PreviewBinding
     /** Map of cached links and their image url */
-    private var imageType = ImageType.NONE
+    private var linkMap: HashMap<Int, String> = hashMapOf()
     /** Type of image to handle in specific way */
-    protected var url = ""
+    private var imageType = ImageType.NONE
     /** Parsed URL */
-    var loadListener: LinkListener? = null
+    protected var url = ""
     /** Optional listener for load callbacks */
-    var clickListener: LinkClickListener? = null
+    var loadListener: LinkListener? = null
     /** Optional click listener to override click behavior */
-    var articleColor: Int = Color.CYAN
+    var clickListener: LinkClickListener? = null
     /** Set whether or not to default to hidden while loading preview */
-    var hideWhileLoading = false
-
+    var articleColor: Int = Color.CYAN
     /** Color of the Chrome CustomTab that is launched on view click */
+    var hideWhileLoading = false
 
     constructor(context: Context) : super(context) {
         bindViews(context)
@@ -63,7 +62,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param context for inflating view
      */
     private fun bindViews(context: Context) {
-        inflate(context, R.layout.preview, this).let {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.preview, this, true)
+        binding.root.let {
             this.minimumHeight = it.minimumHeight
             this.minimumWidth = it.minimumWidth
         }
@@ -74,8 +74,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         if (hideWhileLoading)
             isGone = true
 
-        image = findViewById(R.id.preview_image)
-        text = findViewById(R.id.preview_text)
+
         setOnClickListener(this)
         GlobalScope.launch { linkMap = context.loadLinkMap() }
     }
@@ -132,9 +131,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             } else {
                 try {
                     visibility = View.VISIBLE
-                    text.text = url
+                    binding.previewText.text = url
                     imageType = ImageType.DEFAULT
-                    loadImage(url, linkMap, url.hashCode(), loadListener)
+                    GlobalScope.launch { loadImage(url, linkMap, url.hashCode(), loadListener) }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     imageType = ImageType.NONE
@@ -156,8 +155,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             context.addLink(url, link)
         }
 
-        image.load(link) { crossfade(true) }
-        text.text = url
+        binding.previewImage.load(link) { crossfade(true) }
+        binding.previewText.text = url
 
         if (visibility != View.VISIBLE)
             visibility = View.VISIBLE
