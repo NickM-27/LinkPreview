@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.nick.mowen.linkpreview.CardData
 import com.nick.mowen.linkpreview.ImageType
@@ -118,13 +120,13 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             binding.data = CardData("YouTube Video", imageUrl, url)
         } else {
             try {
-                visibility = View.VISIBLE
+                isVisible = true
                 imageType = ImageType.DEFAULT
                 GlobalScope.launch { loadCardData(url, linkMap, url.hashCode(), loadListener) }
             } catch (e: Exception) {
                 e.printStackTrace()
                 imageType = ImageType.NONE
-                visibility = View.GONE
+                isGone = true
                 loadListener?.onError()
             }
         }
@@ -157,7 +159,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             }
             else -> {
                 imageType = ImageType.NONE
-                visibility = View.GONE
+                isGone = true
                 false
             }
         }
@@ -178,5 +180,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
 
     fun setCardData(data: CardData) {
         binding.data = data
+        Log.e("ERROR?", "The data is $data")
+        binding.executePendingBindings()
     }
 }
