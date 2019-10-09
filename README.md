@@ -18,7 +18,7 @@ On your module's `build.gradle` file add this statement to the `dependencies` se
 
 ```groovy
 dependencies {
-    implementation 'com.nick.mowen.linkpreview:linkpreview:3.0'
+    implementation 'com.nick.mowen.linkpreview:linkpreview:3.2'
 }
 ```
 
@@ -89,6 +89,17 @@ preview.clickListener = object : LinkClickListener {
                 
         }
 }
+```
+
+### Data Binding
+
+LinkPreview supports data binding commands so the view can be customized in xml
+```xml
+    <com.nick.mowen.linkpreview.view.LinkPreview
+        android:id="@+id/preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        app:parsedLink="@{data.string}"/>
 ```
 
 Appications using LinkPreview

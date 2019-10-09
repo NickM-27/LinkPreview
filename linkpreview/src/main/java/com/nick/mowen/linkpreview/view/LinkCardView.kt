@@ -4,27 +4,29 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import coil.api.load
+import com.nick.mowen.linkpreview.CardData
 import com.nick.mowen.linkpreview.ImageType
 import com.nick.mowen.linkpreview.R
-import com.nick.mowen.linkpreview.databinding.PreviewBinding
+import com.nick.mowen.linkpreview.databinding.CardBinding
 import com.nick.mowen.linkpreview.extension.*
+import com.nick.mowen.linkpreview.listener.CardListener
 import com.nick.mowen.linkpreview.listener.LinkClickListener
-import com.nick.mowen.linkpreview.listener.LinkListener
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
-open class LinkPreview : FrameLayout, View.OnClickListener {
+open class LinkCardView : FrameLayout, View.OnClickListener {
 
-    protected lateinit var binding: PreviewBinding
+    protected lateinit var binding: CardBinding
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
     /** Type of image to handle in specific way */
@@ -32,7 +34,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     /** Parsed URL */
     protected var url = ""
     /** Optional listener for load callbacks */
-    var loadListener: LinkListener? = null
+    var loadListener: CardListener? = null
     /** Optional click listener to override click behavior */
     var clickListener: LinkClickListener? = null
     /** Set whether or not to default to hidden while loading preview */
@@ -81,8 +83,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     }
                 }
                 ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                else -> {
-                }
+                else -> Unit
             }
         }
     }
@@ -93,7 +94,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param context for inflating view
      */
     private fun bindViews(context: Context) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.preview, this, true)
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.card, this, true)
         binding.root.let {
             this.minimumHeight = it.minimumHeight
             this.minimumWidth = it.minimumWidth
@@ -109,60 +110,29 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         GlobalScope.launch { linkMap = context.loadLinkMap() }
     }
 
-    /**
-     * Sets the actual text of the view handling multiple types of images including the link cache
-     */
-    private fun setText() {
-        if (linkMap.containsKey(url.hashCode())) {
-            val code = linkMap[url.hashCode()]
-
-            if (code != null && code != "Fail") {
-                imageType = ImageType.DEFAULT
-                setImageData(code)
-            }
+    private fun createLinkData() {
+        if (url.let { it.contains("youtube") && it.contains("v=") }) {
+            val id = url.split("v=")[1].split(" ")[0]
+            val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
+            imageType = ImageType.YOUTUBE
+            context.addLink(url, imageUrl)
+            binding.data = CardData("YouTube Video", imageUrl, url)
         } else {
-            if (url.let { it.contains("youtube") && it.contains("v=") }) {
-                val id = url.split("v=")[1].split(" ")[0]
-                val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
-                imageType = ImageType.YOUTUBE
-                context.addLink(url, imageUrl)
-                setImageData(imageUrl)
-            } else {
-                try {
-                    visibility = View.VISIBLE
-                    binding.previewText.text = url
-                    imageType = ImageType.DEFAULT
-                    GlobalScope.launch { loadImage(url, linkMap, url.hashCode(), loadListener) }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    imageType = ImageType.NONE
-                    visibility = View.GONE
-                    loadListener?.onError()
-                }
+            try {
+                isVisible = true
+                imageType = ImageType.DEFAULT
+                GlobalScope.launch { loadCardData(url, linkMap, url.hashCode(), loadListener) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                imageType = ImageType.NONE
+                isGone = true
+                loadListener?.onError()
             }
         }
     }
 
     /**
-     * Handles loading the article image using Glide
-     *
-     * @param link to image url
-     */
-    fun setImageData(link: String) {
-        if (!linkMap.containsKey(url.hashCode())) {
-            linkMap[url.hashCode()] = link
-            context.addLink(url, link)
-        }
-
-        binding.previewImage.load(link) { crossfade(true) }
-        binding.previewText.text = url
-
-        if (visibility != View.VISIBLE)
-            visibility = View.VISIBLE
-    }
-
-    /**
-     * Allows easy passing of possible link text to check for links that can be handled by [LinkPreview]
+     * Allows easy passing of possible link text to check for links that can be handled by [LinkCardView]
      *
      * @param text entire body to search for link
      * @return if a link was found in the text
@@ -172,23 +142,23 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             text.contains("youtube") && text.contains("v=") -> {
                 val id = text.split("v=")[1].split(" ")[0]
                 url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                createLinkData()
                 true
             }
             text.contains("youtu.be") -> {
                 val id = text.split("be/")[1].split(" ")[0]
                 url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                createLinkData()
                 true
             }
             text.contains("http") -> {
                 url = text.parseUrl()
-                setText()
+                createLinkData()
                 true
             }
             else -> {
                 imageType = ImageType.NONE
-                visibility = View.GONE
+                isGone = true
                 false
             }
         }
@@ -202,8 +172,14 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     fun setLink(link: String) {
         if (link.isUrl()) {
             url = link
-            setText()
+            createLinkData()
         } else
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
+    }
+
+    fun setCardData(data: CardData) {
+        binding.data = data
+        Log.e("ERROR?", "The data is $data")
+        binding.executePendingBindings()
     }
 }
