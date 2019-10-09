@@ -28,7 +28,6 @@ suspend fun LinkPreview.loadImage(
 
                 while ((chosen == null || chosen.isEmpty()) && it < imageElements.size) {
                     chosen = imageElements[it].attr("content")
-                    Log.e("ERROR?", "Found chosen: $chosen")
                     it += 1
                 }
 

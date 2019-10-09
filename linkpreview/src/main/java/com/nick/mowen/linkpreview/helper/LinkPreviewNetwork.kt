@@ -23,9 +23,17 @@ object LinkPreviewNetwork {
                     val doc: Document = connection.get()
                     val imageElements = doc.select("meta[property=og:image]")
 
-                    if (imageElements.size > 0)
-                        imageElements[0].attr("content")
-                    else {
+                    if (imageElements.size > 0) {
+                        var it = 0
+                        var chosen: String? = ""
+
+                        while ((chosen == null || chosen.isEmpty()) && it < imageElements.size) {
+                            chosen = imageElements[it].attr("content")
+                            it += 1
+                        }
+
+                        chosen
+                    } else {
                         linkMap[key] = "Fail"
                         ""
                     }

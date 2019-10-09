@@ -21,6 +21,13 @@ fun Context.loadLinkMap(): HashMap<Int, String> {
 }
 
 /**
+ * Clears previously saved links
+ */
+fun Context.clearMap() {
+    getSharedPreferences(Constants.MAP_PREFERENCES, Context.MODE_PRIVATE).edit { clear() }
+}
+
+/**
  * Adds hashed user URL to set and creates link to preference that holds image url
  *
  * @param hashed url that was parsed
