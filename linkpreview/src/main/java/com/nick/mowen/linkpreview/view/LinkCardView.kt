@@ -83,8 +83,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
                     }
                 }
                 ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                else -> {
-                }
+                else -> Unit
             }
         }
     }
