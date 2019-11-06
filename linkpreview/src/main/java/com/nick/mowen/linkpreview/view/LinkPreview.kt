@@ -18,13 +18,16 @@ import com.nick.mowen.linkpreview.databinding.PreviewBinding
 import com.nick.mowen.linkpreview.extension.*
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var binding: PreviewBinding
+    /** Coroutine Job */
+    private val linkJob = Job()
+    /** Coroutine Scope */
+    private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
     /** Type of image to handle in specific way */
@@ -132,7 +135,12 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     visibility = View.VISIBLE
                     binding.previewText.text = url
                     imageType = ImageType.DEFAULT
-                    GlobalScope.launch { loadImage(url, linkMap, url.hashCode(), loadListener) }
+                    linkScope.launch {
+                        if (linkScope.isActive)
+                            linkScope.cancel()
+
+                        loadImage(url, linkMap, url.hashCode(), loadListener)
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     imageType = ImageType.NONE

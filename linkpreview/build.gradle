@@ -45,7 +45,7 @@ dependencies {
 
     // Other
     implementation 'org.jsoup:jsoup:1.12.1'
-    implementation 'io.coil-kt:coil:0.7.0'
+    implementation 'io.coil-kt:coil:0.8.0'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -20,17 +19,22 @@ import com.nick.mowen.linkpreview.databinding.CardBinding
 import com.nick.mowen.linkpreview.extension.*
 import com.nick.mowen.linkpreview.listener.CardListener
 import com.nick.mowen.linkpreview.listener.LinkClickListener
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @Suppress("MemberVisibilityCanBePrivate") // Leave values as protected for extensibility
 open class LinkCardView : FrameLayout, View.OnClickListener {
 
     protected lateinit var binding: CardBinding
+    /** Coroutine Job */
+    private val linkJob = Job()
+    /** Coroutine Scope */
+    private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
     /** Type of image to handle in specific way */
     private var imageType = ImageType.NONE
+    /** */
+    private val thing = 0
     /** Parsed URL */
     protected var url = ""
     /** Optional listener for load callbacks */
@@ -121,7 +125,12 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             try {
                 isVisible = true
                 imageType = ImageType.DEFAULT
-                GlobalScope.launch { loadCardData(url, linkMap, url.hashCode(), loadListener) }
+                linkScope.launch {
+                    if (linkScope.isActive)
+                        linkScope.cancel()
+
+                    loadCardData(url, linkMap, url.hashCode(), loadListener)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 imageType = ImageType.NONE
@@ -179,7 +188,6 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
 
     fun setCardData(data: CardData) {
         binding.data = data
-        Log.e("ERROR?", "The data is $data")
         binding.executePendingBindings()
     }
 }
