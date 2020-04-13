@@ -10,9 +10,10 @@ import android.widget.FrameLayout
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import coil.api.load
 import com.nick.mowen.linkpreview.ImageType
+import com.nick.mowen.linkpreview.PreviewData
 import com.nick.mowen.linkpreview.R
 import com.nick.mowen.linkpreview.databinding.PreviewBinding
 import com.nick.mowen.linkpreview.extension.*
@@ -24,22 +25,31 @@ import kotlinx.coroutines.*
 open class LinkPreview : FrameLayout, View.OnClickListener {
 
     protected lateinit var binding: PreviewBinding
+
     /** Coroutine Job */
     private val linkJob = Job()
+
     /** Coroutine Scope */
     private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
+
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
+
     /** Type of image to handle in specific way */
     private var imageType = ImageType.NONE
+
     /** Parsed URL */
     protected var url = ""
+
     /** Optional listener for load callbacks */
     var loadListener: LinkListener? = null
+
     /** Optional click listener to override click behavior */
     var clickListener: LinkClickListener? = null
+
     /** Set whether or not to default to hidden while loading preview */
     var articleColor: Int = Color.CYAN
+
     /** Color of the Chrome CustomTab that is launched on view click */
     var hideWhileLoading = false
 
@@ -121,7 +131,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
             if (code != null && code != "Fail") {
                 imageType = ImageType.DEFAULT
-                setImageData(code)
+                setPreviewData(PreviewData("", code, url))
             }
         } else {
             if (url.let { it.contains("youtube") && it.contains("v=") }) {
@@ -129,7 +139,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                 val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
                 imageType = ImageType.YOUTUBE
                 context.addLink(url, imageUrl)
-                setImageData(imageUrl)
+                binding.data = PreviewData("YouTube Video", imageUrl, url)
             } else {
                 try {
                     visibility = View.VISIBLE
@@ -139,7 +149,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                         if (linkScope.isActive)
                             linkScope.cancel()
 
-                        loadImage(url, linkMap, url.hashCode(), loadListener)
+                        loadPreviewData(url, linkMap, url.hashCode(), loadListener)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -154,19 +164,18 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     /**
      * Handles loading the article image using Glide
      *
-     * @param link to image url
+     * @param data to image url and article title
      */
-    fun setImageData(link: String) {
+    fun setPreviewData(data: PreviewData) {
+        binding.data = data
+
         if (!linkMap.containsKey(url.hashCode())) {
-            linkMap[url.hashCode()] = link
-            context.addLink(url, link)
+            linkMap[url.hashCode()] = data.imageUrl
+            context.addLink(url, data.imageUrl)
         }
 
-        binding.previewImage.load(link) { crossfade(true) }
-        binding.previewText.text = url
-
-        if (visibility != View.VISIBLE)
-            visibility = View.VISIBLE
+        if (!isVisible)
+            isVisible = true
     }
 
     /**

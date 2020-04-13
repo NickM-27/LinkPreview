@@ -1,5 +1,7 @@
 package com.nick.mowen.linkpreview.listener
 
+import com.nick.mowen.linkpreview.PreviewData
+
 interface LinkListener {
 
     /**
@@ -12,5 +14,5 @@ interface LinkListener {
      *
      * @param link to url image
      */
-    fun onSuccess(link: String)
+    fun onSuccess(link: PreviewData)
 }

@@ -1,6 +1,6 @@
 package com.nick.mowen.linkpreview.listener
 
-import com.nick.mowen.linkpreview.CardData
+import com.nick.mowen.linkpreview.PreviewData
 
 interface CardListener {
 
@@ -14,5 +14,5 @@ interface CardListener {
      *
      * @param card to url image
      */
-    fun onSuccess(card: CardData)
+    fun onSuccess(card: PreviewData)
 }

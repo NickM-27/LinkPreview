@@ -12,8 +12,8 @@ import androidx.core.net.toUri
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import com.nick.mowen.linkpreview.CardData
 import com.nick.mowen.linkpreview.ImageType
+import com.nick.mowen.linkpreview.PreviewData
 import com.nick.mowen.linkpreview.R
 import com.nick.mowen.linkpreview.databinding.CardBinding
 import com.nick.mowen.linkpreview.extension.*
@@ -25,24 +25,31 @@ import kotlinx.coroutines.*
 open class LinkCardView : FrameLayout, View.OnClickListener {
 
     protected lateinit var binding: CardBinding
+
     /** Coroutine Job */
     private val linkJob = Job()
+
     /** Coroutine Scope */
     private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
+
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
+
     /** Type of image to handle in specific way */
     private var imageType = ImageType.NONE
-    /** */
-    private val thing = 0
+
     /** Parsed URL */
     protected var url = ""
+
     /** Optional listener for load callbacks */
     var loadListener: CardListener? = null
+
     /** Optional click listener to override click behavior */
     var clickListener: LinkClickListener? = null
+
     /** Set whether or not to default to hidden while loading preview */
     var articleColor: Int = Color.CYAN
+
     /** Color of the Chrome CustomTab that is launched on view click */
     var hideWhileLoading = false
 
@@ -120,7 +127,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             val imageUrl = "https://img.youtube.com/vi/$id/hqdefault.jpg"
             imageType = ImageType.YOUTUBE
             context.addLink(url, imageUrl)
-            binding.data = CardData("YouTube Video", imageUrl, url)
+            binding.data = PreviewData("YouTube Video", imageUrl, url)
         } else {
             try {
                 isVisible = true
@@ -186,7 +193,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
     }
 
-    fun setCardData(data: CardData) {
+    fun setCardData(data: PreviewData) {
         binding.data = data
         binding.executePendingBindings()
     }
