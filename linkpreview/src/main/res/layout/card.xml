@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.nick.mowen.linkpreview.CardData" />
+            type="com.nick.mowen.linkpreview.PreviewData" />
 
     </data>
 

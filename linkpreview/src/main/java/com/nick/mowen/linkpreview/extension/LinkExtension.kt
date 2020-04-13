@@ -2,7 +2,7 @@ package com.nick.mowen.linkpreview.extension
 
 import android.util.Log
 import android.view.View
-import com.nick.mowen.linkpreview.CardData
+import com.nick.mowen.linkpreview.PreviewData
 import com.nick.mowen.linkpreview.listener.CardListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import com.nick.mowen.linkpreview.view.LinkCardView
@@ -13,7 +13,8 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-suspend fun LinkPreview.loadImage(
+@Suppress("BlockingMethodInNonBlockingContext")
+suspend fun LinkPreview.loadPreviewData(
     link: String,
     linkMap: HashMap<Int, String>,
     key: Int,
@@ -34,28 +35,28 @@ suspend fun LinkPreview.loadImage(
                     it += 1
                 }
 
-                chosen
+                PreviewData(doc.title(), chosen ?: "", link)
             } else {
                 linkMap[key] = "Fail"
                 launch(Dispatchers.Main) { listener?.onError() }
-                ""
+                PreviewData("", "", "")
             }
         } catch (e: IndexOutOfBoundsException) {
             e.printStackTrace()
             linkMap[key] = "Fail"
             launch(Dispatchers.Main) { listener?.onError() }
-            ""
+            PreviewData("", "", "")
         } catch (e: Exception) {
             e.printStackTrace()
             linkMap[key] = "Fail"
             launch(Dispatchers.Main) { listener?.onError() }
-            ""
+            PreviewData("", "", "")
         }
 
         launch(Dispatchers.Main) {
             try {
-                if (result != null && result.isNotEmpty()) {
-                    setImageData(result)
+                if (result.isNotEmpty()) {
+                    setPreviewData(result)
                     listener?.onSuccess(result)
                 } else {
                     Log.d("Article Request", "Image url is empty")
@@ -75,6 +76,7 @@ suspend fun LinkPreview.loadImage(
     }
 }
 
+@Suppress("BlockingMethodInNonBlockingContext")
 suspend fun LinkCardView.loadCardData(
     link: String,
     linkMap: HashMap<Int, String>,
@@ -96,22 +98,22 @@ suspend fun LinkCardView.loadCardData(
                     it += 1
                 }
 
-                CardData(doc.title(), chosen ?: "", link)
+                PreviewData(doc.title(), chosen ?: "", link)
             } else {
                 linkMap[key] = "Fail"
                 launch(Dispatchers.Main) { listener?.onError() }
-                CardData("", "", "")
+                PreviewData("", "", "")
             }
         } catch (e: IndexOutOfBoundsException) {
             e.printStackTrace()
             linkMap[key] = "Fail"
             launch(Dispatchers.Main) { listener?.onError() }
-            CardData("", "", "")
+            PreviewData("", "", "")
         } catch (e: Exception) {
             e.printStackTrace()
             linkMap[key] = "Fail"
             launch(Dispatchers.Main) { listener?.onError() }
-            CardData("", "", "")
+            PreviewData("", "", "")
         }
 
         launch(Dispatchers.Main) {

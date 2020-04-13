@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.nick.mowen.linkpreview.PreviewData" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/preview"
         android:layout_width="225dp"
@@ -23,17 +31,34 @@
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
+            android:id="@+id/preview_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#59000000"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{data.title}"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/preview_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
             android:id="@+id/preview_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#59000000"
             android:maxLines="2"
-            android:textColor="#ffffff"
+            android:text="@{data.baseUrl}"
+            android:textColor="@android:color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:text="@tools:sample/lorem" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
