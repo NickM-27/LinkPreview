@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.nick.mowen.linkpreview.PreviewData
 import com.nick.mowen.linkpreview.listener.LinkClickListener
 import com.nick.mowen.linkpreview.listener.LinkListener
 import com.nick.mowen.linkpreview.sample.R
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Link loading failed", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onSuccess(link: String) {
+            override fun onSuccess(link: PreviewData) {
 
             }
         }
