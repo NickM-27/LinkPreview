@@ -32,6 +32,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     /** Coroutine Scope */
     private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
 
+    /** Link Indicator to keep track of link status */
+    private var linkIndicator: Int = 0
+
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
 
@@ -146,10 +149,12 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     binding.previewText.text = url
                     imageType = ImageType.DEFAULT
                     linkScope.launch {
-                        if (linkScope.isActive)
+                        if (linkIndicator == 1)
                             linkScope.cancel()
 
+                        linkIndicator = 1
                         loadPreviewData(url, linkMap, url.hashCode(), loadListener)
+                        linkIndicator = 0
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
