@@ -13,8 +13,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/preview"
-        android:layout_width="225dp"
-        android:layout_height="125dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:visibility="visible"
         tools:visibility="visible">
 
@@ -26,8 +27,9 @@
             android:scaleType="centerCrop"
             app:imageUrl="@{data.imageUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintDimensionRatio="1,2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -43,8 +45,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/preview_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/preview_image"
+            app:layout_constraintStart_toStartOf="@+id/preview_image"
             tools:text="@tools:sample/lorem" />
 
         <TextView
@@ -56,9 +58,9 @@
             android:text="@{data.baseUrl}"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/preview_image"
+            app:layout_constraintEnd_toEndOf="@+id/preview_image"
+            app:layout_constraintStart_toStartOf="@+id/preview_image"
             tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

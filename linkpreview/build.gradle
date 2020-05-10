@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 28
-        versionName "3.5.1"
+        versionCode 29
+        versionName "3.5.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,7 +65,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '3.5.1'
+    libraryVersion = '3.5.2'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'

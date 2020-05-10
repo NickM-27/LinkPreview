@@ -1,6 +1,6 @@
 # compiler: R8
 # compiler_version: 1.6.82
-# pg_map_id: a86e142
+# pg_map_id: 8b8eea6
 # common_typos_disable
 androidx.databinding.library.baseAdapters.BR -> androidx.databinding.library.baseAdapters.BR:
     1:1:void <init>():3:3 -> <init>
@@ -43,8 +43,10 @@ com.nick.mowen.linkpreview.PreviewData -> com.nick.mowen.linkpreview.PreviewData
 com.nick.mowen.linkpreview.binding.BindingAdapter -> com.nick.mowen.linkpreview.binding.BindingAdapter:
     1:1:void <clinit>():11:11 -> <clinit>
     1:1:void <init>():11:11 -> <init>
-    1:6:void setImageUrl(android.widget.ImageView,java.lang.String):26:31 -> setImageUrl
-    7:15:void setImageUrl(android.widget.ImageView,java.lang.String):22:30 -> setImageUrl
+    1:12:void setImageUrl(android.widget.ImageView,java.lang.String):26:37 -> setImageUrl
+    13:13:void setImageUrl(android.widget.ImageView,java.lang.String):36:36 -> setImageUrl
+    14:14:void setImageUrl(android.widget.ImageView,java.lang.String):35:35 -> setImageUrl
+    15:31:void setImageUrl(android.widget.ImageView,java.lang.String):22:38 -> setImageUrl
     1:1:boolean setParsedLink(com.nick.mowen.linkpreview.view.LinkPreview,java.lang.String):15:15 -> setParsedLink
 com.nick.mowen.linkpreview.databinding.CardBinding -> com.nick.mowen.linkpreview.databinding.CardBinding:
     1:6:void <init>(java.lang.Object,android.view.View,int,com.google.android.material.card.MaterialCardView,androidx.constraintlayout.widget.ConstraintLayout,android.widget.ImageView,android.widget.TextView,android.widget.TextView):43:48 -> <init>
