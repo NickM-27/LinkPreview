@@ -2,11 +2,8 @@ package com.nick.mowen.linkpreview.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import coil.api.load
+import coil.load
 import com.nick.mowen.linkpreview.view.LinkPreview
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 object BindingAdapter {
 
