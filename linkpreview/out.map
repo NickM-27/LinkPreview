@@ -1,6 +1,6 @@
 # compiler: R8
-# compiler_version: 1.6.82
-# pg_map_id: 8b8eea6
+# compiler_version: 2.1.52
+# pg_map_id: a8d8fe9
 # common_typos_disable
 androidx.databinding.library.baseAdapters.BR -> androidx.databinding.library.baseAdapters.BR:
     1:1:void <init>():3:3 -> <init>
@@ -28,8 +28,8 @@ com.nick.mowen.linkpreview.DataBinderMapperImpl$InnerBrLookup -> com.nick.mowen.
 com.nick.mowen.linkpreview.DataBinderMapperImpl$InnerLayoutIdLookup -> com.nick.mowen.linkpreview.DataBinderMapperImpl$b:
     java.util.HashMap sKeys -> a
     1:5:void <clinit>():108:112 -> <clinit>
-com.nick.mowen.linkpreview.DataBindingInfo -> com.nick.mowen.linkpreview.DataBindingInfo:
-    1:1:void <init>():6:6 -> <init>
+com.nick.mowen.linkpreview.DataBindingTriggerClass -> com.nick.mowen.linkpreview.DataBindingTriggerClass:
+    1:1:void <init>():4:4 -> <init>
 com.nick.mowen.linkpreview.ImageType -> com.nick.mowen.linkpreview.ImageType:
     com.nick.mowen.linkpreview.ImageType[] $VALUES -> a
     1:1:void <init>(java.lang.String,int):6:6 -> <init>
@@ -41,13 +41,12 @@ com.nick.mowen.linkpreview.PreviewData -> com.nick.mowen.linkpreview.PreviewData
     1:1:boolean isEmpty():8:8 -> isEmpty
     1:1:boolean isNotEmpty():10:10 -> isNotEmpty
 com.nick.mowen.linkpreview.binding.BindingAdapter -> com.nick.mowen.linkpreview.binding.BindingAdapter:
-    1:1:void <clinit>():11:11 -> <clinit>
-    1:1:void <init>():11:11 -> <init>
-    1:12:void setImageUrl(android.widget.ImageView,java.lang.String):26:37 -> setImageUrl
-    13:13:void setImageUrl(android.widget.ImageView,java.lang.String):36:36 -> setImageUrl
-    14:14:void setImageUrl(android.widget.ImageView,java.lang.String):35:35 -> setImageUrl
-    15:31:void setImageUrl(android.widget.ImageView,java.lang.String):22:38 -> setImageUrl
-    1:1:boolean setParsedLink(com.nick.mowen.linkpreview.view.LinkPreview,java.lang.String):15:15 -> setParsedLink
+    1:1:void <clinit>():8:8 -> <clinit>
+    1:1:void <clinit>():8:8 -> <init>
+    1:1:void <init>():8 -> <init>
+    1:6:void setImageUrl(android.widget.ImageView,java.lang.String):23:28 -> setImageUrl
+    7:19:void setImageUrl(android.widget.ImageView,java.lang.String):19:31 -> setImageUrl
+    1:1:boolean setParsedLink(com.nick.mowen.linkpreview.view.LinkPreview,java.lang.String):12:12 -> setParsedLink
 com.nick.mowen.linkpreview.databinding.CardBinding -> com.nick.mowen.linkpreview.databinding.CardBinding:
     1:6:void <init>(java.lang.Object,android.view.View,int,com.google.android.material.card.MaterialCardView,androidx.constraintlayout.widget.ConstraintLayout,android.widget.ImageView,android.widget.TextView,android.widget.TextView):43:48 -> <init>
     1:1:com.nick.mowen.linkpreview.databinding.CardBinding bind(android.view.View):97:97 -> bind
@@ -151,8 +150,8 @@ com.nick.mowen.linkpreview.extension.LinkExtensionKt$loadPreviewData$2$result$3 
     1:1:java.lang.Object invokeSuspend(java.lang.Object):52:52 -> invokeSuspend
 com.nick.mowen.linkpreview.extension.LinkMapExtensionKt -> com.nick.mowen.linkpreview.extension.LinkMapExtensionKt:
     1:1:kotlinx.coroutines.Job addLink(android.content.Context,java.lang.String,java.lang.String):36:36 -> addLink
-    1:23:void clearMap(android.content.Context):27:49 -> clearMap
-    24:50:void clearMap(android.content.Context):27:53 -> clearMap
+    1:24:void clearMap(android.content.Context):27:27 -> clearMap
+    50:50:void clearMap(android.content.Context):53:53 -> clearMap
     1:6:java.util.HashMap loadLinkMap(android.content.Context):13:18 -> loadLinkMap
 com.nick.mowen.linkpreview.extension.LinkMapExtensionKt$addLink$1 -> com.nick.mowen.linkpreview.extension.LinkMapExtensionKt$a:
     kotlinx.coroutines.CoroutineScope p$ -> a
@@ -168,8 +167,8 @@ com.nick.mowen.linkpreview.extension.UrlExtensionKt -> com.nick.mowen.linkprevie
 com.nick.mowen.linkpreview.helper.LinkPreviewNetwork -> com.nick.mowen.linkpreview.helper.LinkPreviewNetwork:
     1:1:void <clinit>():10:10 -> <clinit>
     1:1:void <init>():10:10 -> <init>
-    1:2:java.lang.Object loadImage(android.content.Context,java.lang.String,kotlin.coroutines.Continuation):15:16 -> loadImage
-    3:39:java.lang.Object loadImage(android.content.Context,java.lang.String,kotlin.coroutines.Continuation):15:51 -> loadImage
+    1:3:java.lang.Object loadImage(android.content.Context,java.lang.String,kotlin.coroutines.Continuation):15:15 -> loadImage
+    5:39:java.lang.Object loadImage(android.content.Context,java.lang.String,kotlin.coroutines.Continuation):17:51 -> loadImage
 com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$loadImage$1 -> com.nick.mowen.linkpreview.helper.LinkPreviewNetwork$a:
     com.nick.mowen.linkpreview.helper.LinkPreviewNetwork this$0 -> c
     java.lang.Object L$2 -> f
@@ -195,40 +194,76 @@ com.nick.mowen.linkpreview.view.LinkCardView -> com.nick.mowen.linkpreview.view.
     com.nick.mowen.linkpreview.listener.LinkClickListener clickListener -> h
     com.nick.mowen.linkpreview.listener.CardListener loadListener -> g
     1:1:void <init>(android.content.Context):59:59 -> <init>
-    2:32:void <init>(android.content.Context):30:60 -> <init>
-    33:33:void <init>(android.content.Context,android.util.AttributeSet):63:63 -> <init>
-    34:68:void <init>(android.content.Context,android.util.AttributeSet):30:64 -> <init>
-    69:69:void <init>(android.content.Context,android.util.AttributeSet,int):67:67 -> <init>
-    70:112:void <init>(android.content.Context,android.util.AttributeSet,int):30:72 -> <init>
+    2:2:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
+    2:2:void <init>(android.content.Context):30 -> <init>
+    5:5:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
+    5:5:void <init>(android.content.Context):33 -> <init>
+    11:11:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
+    11:11:void <init>(android.content.Context):39 -> <init>
+    14:14:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
+    14:14:void <init>(android.content.Context):42 -> <init>
+    17:17:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
+    17:17:void <init>(android.content.Context):45 -> <init>
+    26:26:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
+    26:26:void <init>(android.content.Context):54 -> <init>
+    27:27:void <init>(android.content.Context):60:60 -> <init>
+    28:28:void <init>(android.content.Context,android.util.AttributeSet):63:63 -> <init>
+    29:29:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
+    29:29:void <init>(android.content.Context,android.util.AttributeSet):30 -> <init>
+    32:32:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
+    32:32:void <init>(android.content.Context,android.util.AttributeSet):33 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet):39 -> <init>
+    41:41:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
+    41:41:void <init>(android.content.Context,android.util.AttributeSet):42 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet):45 -> <init>
+    53:53:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
+    53:53:void <init>(android.content.Context,android.util.AttributeSet):54 -> <init>
+    54:54:void <init>(android.content.Context,android.util.AttributeSet):64:64 -> <init>
+    55:55:void <init>(android.content.Context,android.util.AttributeSet,int):67:67 -> <init>
+    56:98:void <init>(android.content.Context,android.util.AttributeSet,int):30:72 -> <init>
     1:98:void bindViews(android.content.Context):111:208 -> a
     99:100:void bindViews(android.content.Context):123:124 -> a
-    101:183:void createLinkData():128:210 -> a
-    184:259:void createLinkData():137:212 -> a
-    260:260:void createLinkData():150:150 -> a
-    1:1:int access$getLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$getLinkIndicator$p
-    1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$getLinkMap$p
+    101:184:void createLinkData():128:211 -> a
+    185:261:void createLinkData():137:213 -> a
+    262:262:void createLinkData():150:150 -> a
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$getLinkIndicator$p
+    1:1:int access$getLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkCardView):25 -> access$getLinkIndicator$p
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$getLinkMap$p
+    1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkCardView):25 -> access$getLinkMap$p
     1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$getLinkScope$p
-    1:1:void access$setLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkCardView,int):25:25 -> access$setLinkIndicator$p
-    1:1:void access$setLinkMap$p(com.nick.mowen.linkpreview.view.LinkCardView,java.util.HashMap):25:25 -> access$setLinkMap$p
-    1:1:int getArticleColor():54:54 -> getArticleColor
-    1:1:com.nick.mowen.linkpreview.databinding.CardBinding getBinding():27:27 -> getBinding
-    1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():51:51 -> getClickListener
-    1:1:boolean getHideWhileLoading():57:57 -> getHideWhileLoading
-    1:1:com.nick.mowen.linkpreview.listener.CardListener getLoadListener():48:48 -> getLoadListener
-    1:1:java.lang.String getUrl():45:45 -> getUrl
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$setLinkIndicator$p
+    1:1:void access$setLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkCardView,int):25 -> access$setLinkIndicator$p
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkCardView):25:25 -> access$setLinkMap$p
+    1:1:void access$setLinkMap$p(com.nick.mowen.linkpreview.view.LinkCardView,java.util.HashMap):25 -> access$setLinkMap$p
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> getArticleColor
+    1:1:int getArticleColor():54 -> getArticleColor
+    1:1:void setBinding(com.nick.mowen.linkpreview.databinding.CardBinding):27:27 -> getBinding
+    1:1:com.nick.mowen.linkpreview.databinding.CardBinding getBinding():27 -> getBinding
+    1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> getClickListener
+    1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():51 -> getClickListener
+    1:1:void setHideWhileLoading(boolean):57:57 -> getHideWhileLoading
+    1:1:boolean getHideWhileLoading():57 -> getHideWhileLoading
+    1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.CardListener):48:48 -> getLoadListener
+    1:1:com.nick.mowen.linkpreview.listener.CardListener getLoadListener():48 -> getLoadListener
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> getUrl
+    1:1:java.lang.String getUrl():45 -> getUrl
     1:127:void onClick(android.view.View):81:207 -> onClick
     128:128:void onClick(android.view.View):99:99 -> onClick
     129:249:void onClick(android.view.View):86:206 -> onClick
     250:253:void onClick(android.view.View):93:96 -> onClick
-    1:52:boolean parseTextForLink(java.lang.String):163:214 -> parseTextForLink
-    1:1:void setArticleColor(int):54:54 -> setArticleColor
+    1:53:boolean parseTextForLink(java.lang.String):163:215 -> parseTextForLink
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> setArticleColor
+    1:1:void setArticleColor(int):54 -> setArticleColor
     1:1:void setBinding(com.nick.mowen.linkpreview.databinding.CardBinding):27:27 -> setBinding
     1:2:void setCardData(com.nick.mowen.linkpreview.PreviewData):202:203 -> setCardData
     1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> setClickListener
     1:1:void setHideWhileLoading(boolean):57:57 -> setHideWhileLoading
     1:5:void setLink(java.lang.String):194:198 -> setLink
     1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.CardListener):48:48 -> setLoadListener
-    1:1:void setUrl(java.lang.String):45:45 -> setUrl
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> setUrl
+    1:1:void setUrl(java.lang.String):45 -> setUrl
 com.nick.mowen.linkpreview.view.LinkCardView$bindViews$2 -> com.nick.mowen.linkpreview.view.LinkCardView$a:
     kotlinx.coroutines.CoroutineScope p$ -> a
     com.nick.mowen.linkpreview.view.LinkCardView this$0 -> b
@@ -239,8 +274,8 @@ com.nick.mowen.linkpreview.view.LinkCardView$createLinkData$2 -> com.nick.mowen.
     java.lang.Object L$0 -> b
     com.nick.mowen.linkpreview.view.LinkCardView this$0 -> d
     int label -> c
-    1:8:java.lang.Object invokeSuspend(java.lang.Object):138:145 -> invokeSuspend
-    9:16:java.lang.Object invokeSuspend(java.lang.Object):138:145 -> invokeSuspend
+    1:9:java.lang.Object invokeSuspend(java.lang.Object):138:138 -> invokeSuspend
+    10:16:java.lang.Object invokeSuspend(java.lang.Object):139:145 -> invokeSuspend
 com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.LinkPreview:
     com.nick.mowen.linkpreview.listener.LinkListener loadListener -> g
     kotlinx.coroutines.CoroutineScope linkScope -> b
@@ -253,38 +288,74 @@ com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.L
     java.util.HashMap linkMap -> d
     com.nick.mowen.linkpreview.listener.LinkClickListener clickListener -> h
     1:1:void <init>(android.content.Context):59:59 -> <init>
-    2:32:void <init>(android.content.Context):30:60 -> <init>
-    33:33:void <init>(android.content.Context,android.util.AttributeSet):63:63 -> <init>
-    34:68:void <init>(android.content.Context,android.util.AttributeSet):30:64 -> <init>
-    69:69:void <init>(android.content.Context,android.util.AttributeSet,int):67:67 -> <init>
-    70:112:void <init>(android.content.Context,android.util.AttributeSet,int):30:72 -> <init>
+    2:2:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
+    2:2:void <init>(android.content.Context):30 -> <init>
+    5:5:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
+    5:5:void <init>(android.content.Context):33 -> <init>
+    11:11:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
+    11:11:void <init>(android.content.Context):39 -> <init>
+    14:14:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
+    14:14:void <init>(android.content.Context):42 -> <init>
+    17:17:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
+    17:17:void <init>(android.content.Context):45 -> <init>
+    26:26:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
+    26:26:void <init>(android.content.Context):54 -> <init>
+    27:27:void <init>(android.content.Context):60:60 -> <init>
+    28:28:void <init>(android.content.Context,android.util.AttributeSet):63:63 -> <init>
+    29:29:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
+    29:29:void <init>(android.content.Context,android.util.AttributeSet):30 -> <init>
+    32:32:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
+    32:32:void <init>(android.content.Context,android.util.AttributeSet):33 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet):39 -> <init>
+    41:41:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
+    41:41:void <init>(android.content.Context,android.util.AttributeSet):42 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet):45 -> <init>
+    53:53:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
+    53:53:void <init>(android.content.Context,android.util.AttributeSet):54 -> <init>
+    54:54:void <init>(android.content.Context,android.util.AttributeSet):64:64 -> <init>
+    55:55:void <init>(android.content.Context,android.util.AttributeSet,int):67:67 -> <init>
+    56:98:void <init>(android.content.Context,android.util.AttributeSet,int):30:72 -> <init>
     1:123:void bindViews(android.content.Context):112:234 -> a
     124:125:void bindViews(android.content.Context) -> a
     126:157:void setText():132:163 -> a
-    1:1:int access$getLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$getLinkIndicator$p
-    1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$getLinkMap$p
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$getLinkIndicator$p
+    1:1:int access$getLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkPreview):25 -> access$getLinkIndicator$p
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$getLinkMap$p
+    1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview):25 -> access$getLinkMap$p
     1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$getLinkScope$p
-    1:1:void access$setLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkPreview,int):25:25 -> access$setLinkIndicator$p
-    1:1:void access$setLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview,java.util.HashMap):25:25 -> access$setLinkMap$p
-    1:1:int getArticleColor():54:54 -> getArticleColor
-    1:1:com.nick.mowen.linkpreview.databinding.PreviewBinding getBinding():27:27 -> getBinding
-    1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():51:51 -> getClickListener
-    1:1:boolean getHideWhileLoading():57:57 -> getHideWhileLoading
-    1:1:com.nick.mowen.linkpreview.listener.LinkListener getLoadListener():48:48 -> getLoadListener
-    1:1:java.lang.String getUrl():45:45 -> getUrl
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$setLinkIndicator$p
+    1:1:void access$setLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkPreview,int):25 -> access$setLinkIndicator$p
+    1:1:kotlinx.coroutines.CoroutineScope access$getLinkScope$p(com.nick.mowen.linkpreview.view.LinkPreview):25:25 -> access$setLinkMap$p
+    1:1:void access$setLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview,java.util.HashMap):25 -> access$setLinkMap$p
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> getArticleColor
+    1:1:int getArticleColor():54 -> getArticleColor
+    1:1:void setBinding(com.nick.mowen.linkpreview.databinding.PreviewBinding):27:27 -> getBinding
+    1:1:com.nick.mowen.linkpreview.databinding.PreviewBinding getBinding():27 -> getBinding
+    1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> getClickListener
+    1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():51 -> getClickListener
+    1:1:void setHideWhileLoading(boolean):57:57 -> getHideWhileLoading
+    1:1:boolean getHideWhileLoading():57 -> getHideWhileLoading
+    1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.LinkListener):48:48 -> getLoadListener
+    1:1:com.nick.mowen.linkpreview.listener.LinkListener getLoadListener():48 -> getLoadListener
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> getUrl
+    1:1:java.lang.String getUrl():45 -> getUrl
     1:153:void onClick(android.view.View):81:233 -> onClick
     154:154:void onClick(android.view.View):99:99 -> onClick
     155:301:void onClick(android.view.View):86:232 -> onClick
     302:305:void onClick(android.view.View):93:96 -> onClick
     1:20:boolean parseTextForLink(java.lang.String):194:213 -> parseTextForLink
-    1:1:void setArticleColor(int):54:54 -> setArticleColor
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> setArticleColor
+    1:1:void setArticleColor(int):54 -> setArticleColor
     1:1:void setBinding(com.nick.mowen.linkpreview.databinding.PreviewBinding):27:27 -> setBinding
     1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> setClickListener
     1:1:void setHideWhileLoading(boolean):57:57 -> setHideWhileLoading
     1:5:void setLink(java.lang.String):225:229 -> setLink
     1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.LinkListener):48:48 -> setLoadListener
-    1:63:void setPreviewData(com.nick.mowen.linkpreview.PreviewData):175:237 -> setPreviewData
-    1:1:void setUrl(java.lang.String):45:45 -> setUrl
+    1:64:void setPreviewData(com.nick.mowen.linkpreview.PreviewData):175:238 -> setPreviewData
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> setUrl
+    1:1:void setUrl(java.lang.String):45 -> setUrl
 com.nick.mowen.linkpreview.view.LinkPreview$bindViews$2 -> com.nick.mowen.linkpreview.view.LinkPreview$a:
     kotlinx.coroutines.CoroutineScope p$ -> a
     android.content.Context $context -> c
@@ -295,5 +366,5 @@ com.nick.mowen.linkpreview.view.LinkPreview$setText$2 -> com.nick.mowen.linkprev
     com.nick.mowen.linkpreview.view.LinkPreview this$0 -> d
     java.lang.Object L$0 -> b
     int label -> c
-    1:8:java.lang.Object invokeSuspend(java.lang.Object):151:158 -> invokeSuspend
-    9:16:java.lang.Object invokeSuspend(java.lang.Object):151:158 -> invokeSuspend
+    1:9:java.lang.Object invokeSuspend(java.lang.Object):151:151 -> invokeSuspend
+    10:16:java.lang.Object invokeSuspend(java.lang.Object):152:158 -> invokeSuspend

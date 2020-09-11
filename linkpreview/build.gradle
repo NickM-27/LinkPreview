@@ -10,7 +10,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 30
-        versionName "3.6"
+        versionName "3.6.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,14 +38,14 @@ android {
 dependencies {
 
     // AndroidX
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.browser:browser:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     // Other
     implementation 'org.jsoup:jsoup:1.13.1'
-    implementation 'io.coil-kt:coil:1.0.0-rc1'
+    implementation 'io.coil-kt:coil:1.0.0-rc2'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -53,9 +53,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 
     // Testing Libraries
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.2.31'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.4.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 ext {
@@ -65,7 +65,7 @@ ext {
 
     publishedGroupId = 'com.nick.mowen.linkpreview'
     artifact = 'linkpreview'
-    libraryVersion = '3.6'
+    libraryVersion = '3.6.1'
     libraryDescription = 'A convenient view that shows a clickable preview of a link'
     siteUrl = 'https://github.com/NickM-27/LinkPreview'
     gitUrl = 'https://github.com/NickM-27/LinkPreview.git'
