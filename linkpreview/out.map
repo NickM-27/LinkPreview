@@ -1,5 +1,5 @@
 # compiler: R8
-# compiler_version: 2.1.52
+# compiler_version: 2.1.62
 # pg_map_id: a8d8fe9
 # common_typos_disable
 androidx.databinding.library.baseAdapters.BR -> androidx.databinding.library.baseAdapters.BR:
