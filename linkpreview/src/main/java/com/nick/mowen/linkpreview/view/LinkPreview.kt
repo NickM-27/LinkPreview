@@ -205,6 +205,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             }
             text.contains("http") -> {
                 url = text.parseUrl()
+
+                if (url.startsWith("http://"))
+                    url = url.replace("http://", "https://")
+
                 setText()
                 true
             }

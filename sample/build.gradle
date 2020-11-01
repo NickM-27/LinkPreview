@@ -37,13 +37,16 @@ dependencies {
     // AndroidX
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.browser:browser:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // App library
     implementation project(':linkpreview')
+
+    // Other
+    implementation "dev.chrisbanes:insetter-dbx:0.3.1"
 
     // Testing Libraries
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.4.0'
