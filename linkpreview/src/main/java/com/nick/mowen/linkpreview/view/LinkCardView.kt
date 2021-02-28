@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -31,6 +30,9 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
 
     /** Coroutine Scope */
     private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
+
+    /** Link Indicator to keep track of link status */
+    private var linkIndicator: Int = 0
 
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
@@ -75,24 +77,9 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
      * @param view [LinkPreview] that was clicked
      */
     override fun onClick(view: View?) {
-        if (clickListener != null)
-            clickListener?.onLinkClicked(view, url)
-        else {
+        clickListener?.onLinkClicked(view, url) ?: run {
             when (imageType) {
-                ImageType.DEFAULT -> {
-                    val chromeTab = CustomTabsIntent.Builder()
-                        .setToolbarColor(articleColor)
-                        .addDefaultShareMenuItem()
-                        .enableUrlBarHiding()
-                        .build()
-
-                    try {
-                        chromeTab.launchUrl(context, url.toUri())
-                    } catch (e: Exception) {
-                        //context.showToast("Could not open article")
-                        e.printStackTrace()
-                    }
-                }
+                ImageType.DEFAULT -> context.launchUrlWithCustomTab(url.toUri(), articleColor)
                 ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                 else -> Unit
             }
@@ -111,11 +98,13 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
             this.minimumWidth = it.minimumWidth
         }
 
-        if (isInEditMode)
+        if (isInEditMode) {
             return
+        }
 
-        if (hideWhileLoading)
+        if (hideWhileLoading) {
             isGone = true
+        }
 
         setOnClickListener(this)
         GlobalScope.launch { linkMap = context.loadLinkMap() }
@@ -133,10 +122,12 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
                 isVisible = true
                 imageType = ImageType.DEFAULT
                 linkScope.launch {
-                    if (linkScope.isActive)
+                    if (linkIndicator == 1)
                         linkScope.cancel()
 
+                    linkIndicator = 1
                     loadCardData(url, linkMap, url.hashCode(), loadListener)
+                    linkIndicator = 0
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -189,8 +180,9 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
         if (link.isUrl()) {
             url = link
             createLinkData()
-        } else
+        } else {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
+        }
     }
 
     fun setCardData(data: PreviewData) {

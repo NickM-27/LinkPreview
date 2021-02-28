@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -31,6 +30,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     /** Coroutine Scope */
     private val linkScope = CoroutineScope(Dispatchers.Main + linkJob)
+
+    /** Link Indicator to keep track of link status */
+    private var linkIndicator: Int = 0
 
     /** Map of cached links and their image url */
     private var linkMap: HashMap<Int, String> = hashMapOf()
@@ -59,6 +61,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         bindViews(context)
+        bindAttrs(attrs, 0)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -67,6 +70,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         defStyle
     ) {
         bindViews(context)
+        bindAttrs(attrs, defStyle)
     }
 
     /**
@@ -75,27 +79,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param view [LinkPreview] that was clicked
      */
     override fun onClick(view: View?) {
-        if (clickListener != null)
-            clickListener?.onLinkClicked(view, url)
-        else {
+        clickListener?.onLinkClicked(view, url) ?: run {
             when (imageType) {
-                ImageType.DEFAULT -> {
-                    val chromeTab = CustomTabsIntent.Builder()
-                        .setToolbarColor(articleColor)
-                        .addDefaultShareMenuItem()
-                        .enableUrlBarHiding()
-                        .build()
-
-                    try {
-                        chromeTab.launchUrl(context, url.toUri())
-                    } catch (e: Exception) {
-                        //context.showToast("Could not open article")
-                        e.printStackTrace()
-                    }
-                }
+                ImageType.DEFAULT -> context.launchUrlWithCustomTab(url.toUri(), articleColor)
                 ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                else -> {
-                }
+                else -> Unit
             }
         }
     }
@@ -112,14 +100,29 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             this.minimumWidth = it.minimumWidth
         }
 
-        if (isInEditMode)
+        if (isInEditMode) {
             return
+        }
 
-        if (hideWhileLoading)
+        if (hideWhileLoading) {
             isGone = true
+        }
 
         setOnClickListener(this)
         GlobalScope.launch { linkMap = context.loadLinkMap() }
+    }
+
+    private fun bindAttrs(attrs: AttributeSet, defStyle: Int) {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.LinkPreview, defStyle, 0).let { linkAttrs ->
+            try {
+                linkAttrs.getBoolean(R.styleable.LinkPreview_roundedCorners, false).let { useRoundedCorners ->
+                    binding.previewImage.shapeAppearanceModel = binding.previewImage.shapeAppearanceModel.toBuilder().setAllCornerSizes(if (useRoundedCorners) 24f else 0f).build()
+                    binding.background.shapeAppearanceModel = binding.background.shapeAppearanceModel.toBuilder().setAllCornerSizes(if (useRoundedCorners) 24f else 0f).build()
+                }
+            } finally {
+                linkAttrs.recycle()
+            }
+        }
     }
 
     /**
@@ -127,11 +130,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      */
     private fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
-            val code = linkMap[url.hashCode()]
-
-            if (code != null && code != "Fail") {
-                imageType = ImageType.DEFAULT
-                setPreviewData(PreviewData("", code, url))
+            linkMap[url.hashCode()]?.let { code ->
+                if (code != "Fail") {
+                    imageType = ImageType.DEFAULT
+                    setPreviewData(PreviewData("", code, url))
+                }
             }
         } else {
             if (url.let { it.contains("youtube") && it.contains("v=") }) {
@@ -146,10 +149,13 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     binding.previewText.text = url
                     imageType = ImageType.DEFAULT
                     linkScope.launch {
-                        if (linkScope.isActive)
+                        if (linkIndicator == 1) {
                             linkScope.cancel()
+                        }
 
+                        linkIndicator = 1
                         loadPreviewData(url, linkMap, url.hashCode(), loadListener)
+                        linkIndicator = 0
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -174,8 +180,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             context.addLink(url, data.imageUrl)
         }
 
-        if (!isVisible)
+        if (!isVisible) {
             isVisible = true
+        }
     }
 
     /**
@@ -200,6 +207,10 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             }
             text.contains("http") -> {
                 url = text.parseUrl()
+
+                if (url.startsWith("http://"))
+                    url = url.replace("http://", "https://")
+
                 setText()
                 true
             }
@@ -220,7 +231,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         if (link.isUrl()) {
             url = link
             setText()
-        } else
+        } else {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
+        }
     }
 }

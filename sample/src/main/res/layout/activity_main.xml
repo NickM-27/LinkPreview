@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_link_search"
         android:inputType="textUri"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/search"
+        app:layout_constraintEnd_toStartOf="@+id/search"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -24,8 +24,8 @@
         android:onClick="tryText"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@+id/url"
-        app:layout_constraintLeft_toRightOf="@+id/url"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/url"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.nick.mowen.linkpreview.view.LinkPreview
@@ -33,9 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/card"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/url" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/url"
+        app:roundedCorners="true" />
 
     <com.nick.mowen.linkpreview.view.LinkCardView
         android:id="@+id/card"
