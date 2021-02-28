@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="data"
             type="com.nick.mowen.linkpreview.PreviewData" />
@@ -19,7 +21,7 @@
         android:visibility="visible"
         tools:visibility="visible">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/preview_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -33,28 +35,42 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#59000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/preview_title" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/preview_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#59000000"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
             android:text="@{data.title}"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:visibility='@{data.title != "" ? View.VISIBLE : View.GONE }'
             app:layout_constraintBottom_toTopOf="@+id/preview_text"
             app:layout_constraintEnd_toEndOf="@+id/preview_image"
             app:layout_constraintStart_toStartOf="@+id/preview_image"
             tools:text="@tools:sample/lorem" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/preview_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#59000000"
             android:maxLines="2"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="@{data.baseUrl}"
             android:textColor="@android:color/white"
             android:textSize="12sp"

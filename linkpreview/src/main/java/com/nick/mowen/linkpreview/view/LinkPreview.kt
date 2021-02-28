@@ -61,6 +61,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         bindViews(context)
+        bindAttrs(attrs, 0)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -69,6 +70,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         defStyle
     ) {
         bindViews(context)
+        bindAttrs(attrs, defStyle)
     }
 
     /**
@@ -108,6 +110,19 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
         setOnClickListener(this)
         GlobalScope.launch { linkMap = context.loadLinkMap() }
+    }
+
+    private fun bindAttrs(attrs: AttributeSet, defStyle: Int) {
+        context.theme.obtainStyledAttributes(attrs, R.styleable.LinkPreview, defStyle, 0).let { linkAttrs ->
+            try {
+                linkAttrs.getBoolean(R.styleable.LinkPreview_roundedCorners, false).let { useRoundedCorners ->
+                    binding.previewImage.shapeAppearanceModel = binding.previewImage.shapeAppearanceModel.toBuilder().setAllCornerSizes(if (useRoundedCorners) 24f else 0f).build()
+                    binding.background.shapeAppearanceModel = binding.background.shapeAppearanceModel.toBuilder().setAllCornerSizes(if (useRoundedCorners) 24f else 0f).build()
+                }
+            } finally {
+                linkAttrs.recycle()
+            }
+        }
     }
 
     /**
