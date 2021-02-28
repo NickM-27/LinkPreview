@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
@@ -84,9 +85,14 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             when (imageType) {
                 ImageType.DEFAULT -> {
                     val chromeTab = CustomTabsIntent.Builder()
-                        .setToolbarColor(articleColor)
-                        .addDefaultShareMenuItem()
-                        .enableUrlBarHiding()
+                        .setDefaultColorSchemeParams(
+                            CustomTabColorSchemeParams.Builder()
+                                .setToolbarColor(articleColor)
+                                .setNavigationBarColor(articleColor)
+                                .build()
+                        )
+                        .setShareState(CustomTabsIntent.SHARE_STATE_ON)
+                        .setUrlBarHidingEnabled(true)
                         .build()
 
                     try {
@@ -115,11 +121,13 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             this.minimumWidth = it.minimumWidth
         }
 
-        if (isInEditMode)
+        if (isInEditMode) {
             return
+        }
 
-        if (hideWhileLoading)
+        if (hideWhileLoading) {
             isGone = true
+        }
 
         setOnClickListener(this)
         GlobalScope.launch { linkMap = context.loadLinkMap() }
@@ -130,11 +138,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      */
     private fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
-            val code = linkMap[url.hashCode()]
-
-            if (code != null && code != "Fail") {
-                imageType = ImageType.DEFAULT
-                setPreviewData(PreviewData("", code, url))
+            linkMap[url.hashCode()]?.let { code ->
+                if (code != "Fail") {
+                    imageType = ImageType.DEFAULT
+                    setPreviewData(PreviewData("", code, url))
+                }
             }
         } else {
             if (url.let { it.contains("youtube") && it.contains("v=") }) {
@@ -149,8 +157,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                     binding.previewText.text = url
                     imageType = ImageType.DEFAULT
                     linkScope.launch {
-                        if (linkIndicator == 1)
+                        if (linkIndicator == 1) {
                             linkScope.cancel()
+                        }
 
                         linkIndicator = 1
                         loadPreviewData(url, linkMap, url.hashCode(), loadListener)
@@ -179,8 +188,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
             context.addLink(url, data.imageUrl)
         }
 
-        if (!isVisible)
+        if (!isVisible) {
             isVisible = true
+        }
     }
 
     /**
@@ -229,7 +239,8 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         if (link.isUrl()) {
             url = link
             setText()
-        } else
+        } else {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
+        }
     }
 }
