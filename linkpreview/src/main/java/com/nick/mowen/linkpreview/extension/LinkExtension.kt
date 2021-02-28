@@ -1,7 +1,11 @@
 package com.nick.mowen.linkpreview.extension
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.View
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
 import com.nick.mowen.linkpreview.PreviewData
 import com.nick.mowen.linkpreview.listener.CardListener
 import com.nick.mowen.linkpreview.listener.LinkListener
@@ -137,4 +141,24 @@ suspend fun LinkCardView.loadCardData(
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+fun Context.launchUrlWithCustomTab(uri: Uri, articleColor: Int) {
+    CustomTabsIntent.Builder()
+        .setDefaultColorSchemeParams(
+            CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(articleColor)
+                .setNavigationBarColor(articleColor)
+                .build()
+        )
+        .setShareState(androidx.browser.customtabs.CustomTabsIntent.SHARE_STATE_ON)
+        .setUrlBarHidingEnabled(true)
+        .build().let { chromeTab ->
+            try {
+                chromeTab.launchUrl(this, uri)
+            } catch (e: Exception) {
+                //context.showToast("Could not open article")
+                e.printStackTrace()
+            }
+        }
 }

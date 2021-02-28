@@ -7,8 +7,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -79,32 +77,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param view [LinkPreview] that was clicked
      */
     override fun onClick(view: View?) {
-        if (clickListener != null)
-            clickListener?.onLinkClicked(view, url)
-        else {
+        clickListener?.onLinkClicked(view, url) ?: run {
             when (imageType) {
-                ImageType.DEFAULT -> {
-                    val chromeTab = CustomTabsIntent.Builder()
-                        .setDefaultColorSchemeParams(
-                            CustomTabColorSchemeParams.Builder()
-                                .setToolbarColor(articleColor)
-                                .setNavigationBarColor(articleColor)
-                                .build()
-                        )
-                        .setShareState(CustomTabsIntent.SHARE_STATE_ON)
-                        .setUrlBarHidingEnabled(true)
-                        .build()
-
-                    try {
-                        chromeTab.launchUrl(context, url.toUri())
-                    } catch (e: Exception) {
-                        //context.showToast("Could not open article")
-                        e.printStackTrace()
-                    }
-                }
+                ImageType.DEFAULT -> context.launchUrlWithCustomTab(url.toUri(), articleColor)
                 ImageType.YOUTUBE -> context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                else -> {
-                }
+                else -> Unit
             }
         }
     }
