@@ -107,7 +107,7 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
         }
 
         setOnClickListener(this)
-        GlobalScope.launch { linkMap = context.loadLinkMap() }
+        linkScope.launch { linkMap = context.loadLinkMap() }
     }
 
     private fun createLinkData() {
@@ -188,5 +188,11 @@ open class LinkCardView : FrameLayout, View.OnClickListener {
     fun setCardData(data: PreviewData) {
         binding.data = data
         binding.executePendingBindings()
+    }
+
+    companion object {
+
+        private const val TAG = "LinkPreview"
+        private const val LINK_SEPARATOR = ":;:"
     }
 }
