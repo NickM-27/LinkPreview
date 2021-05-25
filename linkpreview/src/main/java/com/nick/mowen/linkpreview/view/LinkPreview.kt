@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -109,7 +110,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         }
 
         setOnClickListener(this)
-        GlobalScope.launch { linkMap = context.loadLinkMap() }
+        linkScope.launch { linkMap = context.loadLinkMap() }
     }
 
     private fun bindAttrs(attrs: AttributeSet, defStyle: Int) {
@@ -131,9 +132,21 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     private fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()]?.let { code ->
-                if (code != "Fail") {
-                    imageType = ImageType.DEFAULT
-                    setPreviewData(PreviewData("", code, url))
+                when {
+                    code == "Fail" -> {
+                        visibility = View.GONE
+                        Log.d(TAG, "$url was a FAIL")
+                    }
+                    code.contains(LINK_SEPARATOR) -> {
+                        imageType = ImageType.DEFAULT
+                        code.split(LINK_SEPARATOR).let { parts ->
+                            setPreviewData(PreviewData(parts[0], parts[1], url))
+                        }
+                    }
+                    else -> {
+                        imageType = ImageType.DEFAULT
+                        setPreviewData(PreviewData("", code, url))
+                    }
                 }
             }
         } else {
@@ -177,7 +190,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
         if (!linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()] = data.imageUrl
-            context.addLink(url, data.imageUrl)
+            context.addLink(url, "${data.title}$LINK_SEPARATOR${data.imageUrl}")
         }
 
         if (!isVisible) {
@@ -234,5 +247,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         } else {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
         }
+    }
+
+    companion object {
+
+        private const val TAG = "LinkPreview"
+        private const val LINK_SEPARATOR = ":;:"
     }
 }
