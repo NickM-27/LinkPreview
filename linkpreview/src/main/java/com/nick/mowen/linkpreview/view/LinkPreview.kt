@@ -187,6 +187,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      */
     fun setPreviewData(data: PreviewData) {
         binding.data = data
+        binding.executePendingBindings()
 
         if (!linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()] = data.imageUrl
@@ -204,28 +205,43 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param text entire body to search for link
      * @return if a link was found in the text
      */
-    fun parseTextForLink(text: String): Boolean {
-        return when {
+    fun parseTextForLink(text: String): Boolean =
+        when {
             text.contains("youtube") && text.contains("v=") -> {
-                val id = text.split("v=")[1].split(" ")[0]
-                url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                text.split("v=")[1].split(" ")[0].let { id ->
+                    url = "https://www.youtube.com/watch?v=$id"
+                    setText()
+                }
                 true
             }
             text.contains("youtu.be") -> {
-                val id = text.split("be/")[1].split(" ")[0]
-                url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                text.split("be/")[1].split(" ")[0].let { id ->
+                    url = "https://www.youtube.com/watch?v=$id"
+                    setText()
+                }
                 true
             }
             text.contains("http") -> {
                 url = text.parseUrl()
 
-                if (url.startsWith("http://"))
+                if (url.startsWith("http://")) {
                     url = url.replace("http://", "https://")
+                }
 
                 setText()
                 true
+            }
+            text == "" -> {
+                // Empty text indicates user wants to clear out current operation
+                try {
+                    linkScope.cancel()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+                imageType = ImageType.NONE
+                visibility = View.GONE
+                false
             }
             else -> {
                 imageType = ImageType.NONE
@@ -233,7 +249,6 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                 false
             }
         }
-    }
 
     /**
      * Allows direct setting of url if already known
