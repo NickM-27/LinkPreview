@@ -56,6 +56,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     /** Color of the Chrome CustomTab that is launched on view click */
     var hideWhileLoading = false
 
+    /** Current link looking to be processed, useful when in a list and scrolling causes race conditions */
+    var currentLink = ""
+
     constructor(context: Context) : super(context) {
         bindViews(context)
     }
@@ -186,16 +189,18 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param data to image url and article title
      */
     fun setPreviewData(data: PreviewData) {
-        binding.data = data
-        binding.executePendingBindings()
+        if (currentLink.isEmpty() || data.baseUrl == currentLink) {
+            binding.data = data
+            binding.executePendingBindings()
 
-        if (!linkMap.containsKey(url.hashCode())) {
-            linkMap[url.hashCode()] = data.imageUrl
-            context.addLink(url, "${data.title}$LINK_SEPARATOR${data.imageUrl}")
-        }
+            if (!linkMap.containsKey(url.hashCode())) {
+                linkMap[url.hashCode()] = data.imageUrl
+                context.addLink(url, "${data.title}$LINK_SEPARATOR${data.imageUrl}")
+            }
 
-        if (!isVisible) {
-            isVisible = true
+            if (!isVisible) {
+                isVisible = true
+            }
         }
     }
 
@@ -232,13 +237,6 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                 true
             }
             text == "" -> {
-                // Empty text indicates user wants to clear out current operation
-                try {
-                    linkScope.cancel()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
                 imageType = ImageType.NONE
                 visibility = View.GONE
                 false

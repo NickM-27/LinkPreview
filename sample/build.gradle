@@ -28,7 +28,7 @@ android {
         targetCompatibility 1.8
     }
     buildFeatures {
-        dataBinding = true
+        dataBinding true
     }
 }
 
@@ -36,11 +36,9 @@ dependencies {
 
     // AndroidX
     implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.browser:browser:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // App library
     implementation project(':linkpreview')
