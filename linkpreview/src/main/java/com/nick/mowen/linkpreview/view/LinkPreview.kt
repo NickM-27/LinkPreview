@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -54,6 +55,9 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
 
     /** Color of the Chrome CustomTab that is launched on view click */
     var hideWhileLoading = false
+
+    /** Current link looking to be processed, useful when in a list and scrolling causes race conditions */
+    var currentLink = ""
 
     constructor(context: Context) : super(context) {
         bindViews(context)
@@ -109,7 +113,7 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         }
 
         setOnClickListener(this)
-        GlobalScope.launch { linkMap = context.loadLinkMap() }
+        linkScope.launch { linkMap = context.loadLinkMap() }
     }
 
     private fun bindAttrs(attrs: AttributeSet, defStyle: Int) {
@@ -131,9 +135,21 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
     private fun setText() {
         if (linkMap.containsKey(url.hashCode())) {
             linkMap[url.hashCode()]?.let { code ->
-                if (code != "Fail") {
-                    imageType = ImageType.DEFAULT
-                    setPreviewData(PreviewData("", code, url))
+                when {
+                    code == "Fail" -> {
+                        visibility = View.GONE
+                        Log.d(TAG, "$url was a FAIL")
+                    }
+                    code.contains(LINK_SEPARATOR) -> {
+                        imageType = ImageType.DEFAULT
+                        code.split(LINK_SEPARATOR).let { parts ->
+                            setPreviewData(PreviewData(parts[0], parts[1], url))
+                        }
+                    }
+                    else -> {
+                        imageType = ImageType.DEFAULT
+                        setPreviewData(PreviewData("", code, url))
+                    }
                 }
             }
         } else {
@@ -173,15 +189,18 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param data to image url and article title
      */
     fun setPreviewData(data: PreviewData) {
-        binding.data = data
+        if (currentLink.isEmpty() || data.baseUrl == currentLink) {
+            binding.data = data
+            binding.executePendingBindings()
 
-        if (!linkMap.containsKey(url.hashCode())) {
-            linkMap[url.hashCode()] = data.imageUrl
-            context.addLink(url, data.imageUrl)
-        }
+            if (!linkMap.containsKey(url.hashCode())) {
+                linkMap[url.hashCode()] = data.imageUrl
+                context.addLink(url, "${data.title}$LINK_SEPARATOR${data.imageUrl}")
+            }
 
-        if (!isVisible) {
-            isVisible = true
+            if (!isVisible) {
+                isVisible = true
+            }
         }
     }
 
@@ -191,28 +210,36 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
      * @param text entire body to search for link
      * @return if a link was found in the text
      */
-    fun parseTextForLink(text: String): Boolean {
-        return when {
+    fun parseTextForLink(text: String): Boolean =
+        when {
             text.contains("youtube") && text.contains("v=") -> {
-                val id = text.split("v=")[1].split(" ")[0]
-                url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                text.split("v=")[1].split(" ")[0].let { id ->
+                    url = "https://www.youtube.com/watch?v=$id"
+                    setText()
+                }
                 true
             }
             text.contains("youtu.be") -> {
-                val id = text.split("be/")[1].split(" ")[0]
-                url = "https://www.youtube.com/watch?v=$id"
-                setText()
+                text.split("be/")[1].split(" ")[0].let { id ->
+                    url = "https://www.youtube.com/watch?v=$id"
+                    setText()
+                }
                 true
             }
             text.contains("http") -> {
                 url = text.parseUrl()
 
-                if (url.startsWith("http://"))
+                if (url.startsWith("http://")) {
                     url = url.replace("http://", "https://")
+                }
 
                 setText()
                 true
+            }
+            text == "" -> {
+                imageType = ImageType.NONE
+                visibility = View.GONE
+                false
             }
             else -> {
                 imageType = ImageType.NONE
@@ -220,7 +247,6 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
                 false
             }
         }
-    }
 
     /**
      * Allows direct setting of url if already known
@@ -234,5 +260,11 @@ open class LinkPreview : FrameLayout, View.OnClickListener {
         } else {
             throw IllegalArgumentException("String is not a valid link, if you want to parse full text use LinkPreview.parseTextForLink")
         }
+    }
+
+    companion object {
+
+        private const val TAG = "LinkPreview"
+        private const val LINK_SEPARATOR = ":;:"
     }
 }

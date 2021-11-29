@@ -14,11 +14,13 @@ A convenient library to show clickable previews of links.
 
 ### Gradle
 
+This library is now distributed as part of `mavenCentral()`
+
 On your module's `build.gradle` file add this statement to the `dependencies` section:
 
 ```groovy
 dependencies {
-    implementation 'com.nick.mowen.linkpreview:linkpreview:3.8'
+    implementation 'com.nicknackdevelopment:linkpreview:4.0'
 }
 ```
 

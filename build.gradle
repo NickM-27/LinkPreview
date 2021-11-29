@@ -1,27 +1,33 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.31'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        // For Library
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        // For Library Publishing
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
+
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url "https://jcenter.bintray.com/" }
     }
 }
+
+apply from: "${rootDir}/publish-root.gradle"
 
 task clean(type: Delete) {
     delete rootProject.buildDir

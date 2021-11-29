@@ -151,7 +151,7 @@ fun Context.launchUrlWithCustomTab(uri: Uri, articleColor: Int) {
                 .setNavigationBarColor(articleColor)
                 .build()
         )
-        .setShareState(androidx.browser.customtabs.CustomTabsIntent.SHARE_STATE_ON)
+        .setShareState(CustomTabsIntent.SHARE_STATE_ON)
         .setUrlBarHidingEnabled(true)
         .build().let { chromeTab ->
             try {
