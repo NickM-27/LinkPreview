@@ -1,6 +1,6 @@
 # compiler: R8
 # compiler_version: 2.2.71
-# pg_map_id: ce62dde
+# pg_map_id: 9193374
 # common_typos_disable
 androidx.databinding.library.baseAdapters.BR -> androidx.databinding.library.baseAdapters.BR:
     1:1:void <init>():3:3 -> <init>
@@ -369,6 +369,7 @@ com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.L
     com.nick.mowen.linkpreview.listener.LinkListener loadListener -> g
     kotlinx.coroutines.CoroutineScope linkScope -> b
     java.lang.String url -> f
+    java.lang.String currentLink -> k
     boolean hideWhileLoading -> j
     int articleColor -> i
     kotlinx.coroutines.CompletableJob linkJob -> a
@@ -376,7 +377,7 @@ com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.L
     int linkIndicator -> c
     java.util.HashMap linkMap -> d
     com.nick.mowen.linkpreview.listener.LinkClickListener clickListener -> h
-    1:1:void <init>(android.content.Context):59:59 -> <init>
+    1:1:void <init>(android.content.Context):62:62 -> <init>
     2:2:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
     2:2:void <init>(android.content.Context):30 -> <init>
     5:5:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
@@ -389,27 +390,31 @@ com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.L
     17:17:void <init>(android.content.Context):45 -> <init>
     26:26:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
     26:26:void <init>(android.content.Context):54 -> <init>
-    27:27:void <init>(android.content.Context):60:60 -> <init>
-    28:28:void <init>(android.content.Context,android.util.AttributeSet):63:63 -> <init>
-    29:29:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
-    29:29:void <init>(android.content.Context,android.util.AttributeSet):30 -> <init>
-    32:32:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
-    32:32:void <init>(android.content.Context,android.util.AttributeSet):33 -> <init>
-    38:38:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
-    38:38:void <init>(android.content.Context,android.util.AttributeSet):39 -> <init>
-    41:41:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
-    41:41:void <init>(android.content.Context,android.util.AttributeSet):42 -> <init>
-    44:44:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
-    44:44:void <init>(android.content.Context,android.util.AttributeSet):45 -> <init>
-    53:53:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
-    53:53:void <init>(android.content.Context,android.util.AttributeSet):54 -> <init>
-    54:55:void <init>(android.content.Context,android.util.AttributeSet):64:65 -> <init>
-    56:56:void <init>(android.content.Context,android.util.AttributeSet,int):68:68 -> <init>
-    57:101:void <init>(android.content.Context,android.util.AttributeSet,int):30:74 -> <init>
-    1:178:void bindViews(android.content.Context):98:275 -> a
-    179:180:void bindViews(android.content.Context):112:113 -> a
-    181:188:void bindAttrs(android.util.AttributeSet,int):117:124 -> a
-    189:233:void setText():133:177 -> a
+    32:32:void <init>(android.content.Context,android.util.AttributeSet,int):60:60 -> <init>
+    32:32:void <init>(android.content.Context):60 -> <init>
+    33:33:void <init>(android.content.Context):63:63 -> <init>
+    34:34:void <init>(android.content.Context,android.util.AttributeSet):66:66 -> <init>
+    35:35:void <init>(android.content.Context,android.util.AttributeSet,int):30:30 -> <init>
+    35:35:void <init>(android.content.Context,android.util.AttributeSet):30 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet,int):33:33 -> <init>
+    38:38:void <init>(android.content.Context,android.util.AttributeSet):33 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet,int):39:39 -> <init>
+    44:44:void <init>(android.content.Context,android.util.AttributeSet):39 -> <init>
+    47:47:void <init>(android.content.Context,android.util.AttributeSet,int):42:42 -> <init>
+    47:47:void <init>(android.content.Context,android.util.AttributeSet):42 -> <init>
+    50:50:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> <init>
+    50:50:void <init>(android.content.Context,android.util.AttributeSet):45 -> <init>
+    59:59:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> <init>
+    59:59:void <init>(android.content.Context,android.util.AttributeSet):54 -> <init>
+    65:65:void <init>(android.content.Context,android.util.AttributeSet,int):60:60 -> <init>
+    65:65:void <init>(android.content.Context,android.util.AttributeSet):60 -> <init>
+    66:67:void <init>(android.content.Context,android.util.AttributeSet):67:68 -> <init>
+    68:68:void <init>(android.content.Context,android.util.AttributeSet,int):71:71 -> <init>
+    69:116:void <init>(android.content.Context,android.util.AttributeSet,int):30:77 -> <init>
+    1:173:void bindViews(android.content.Context):101:273 -> a
+    174:175:void bindViews(android.content.Context):115:116 -> a
+    176:183:void bindAttrs(android.util.AttributeSet,int):120:127 -> a
+    184:228:void setText():136:180 -> a
     1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview):24:24 -> access$getLinkIndicator$p
     1:1:int access$getLinkIndicator$p(com.nick.mowen.linkpreview.view.LinkPreview):24 -> access$getLinkIndicator$p
     1:1:java.util.HashMap access$getLinkMap$p(com.nick.mowen.linkpreview.view.LinkPreview):24:24 -> access$getLinkMap$p
@@ -425,29 +430,33 @@ com.nick.mowen.linkpreview.view.LinkPreview -> com.nick.mowen.linkpreview.view.L
     1:1:com.nick.mowen.linkpreview.databinding.PreviewBinding getBinding():27 -> getBinding
     1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> getClickListener
     1:1:com.nick.mowen.linkpreview.listener.LinkClickListener getClickListener():51 -> getClickListener
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):60:60 -> getCurrentLink
+    1:1:java.lang.String getCurrentLink():60 -> getCurrentLink
     1:1:void setHideWhileLoading(boolean):57:57 -> getHideWhileLoading
     1:1:boolean getHideWhileLoading():57 -> getHideWhileLoading
     1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.LinkListener):48:48 -> getLoadListener
     1:1:com.nick.mowen.linkpreview.listener.LinkListener getLoadListener():48 -> getLoadListener
     1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> getUrl
     1:1:java.lang.String getUrl():45 -> getUrl
-    1:192:void onClick(android.view.View):83:274 -> onClick
-    193:193:void onClick(android.view.View):86:86 -> onClick
-    194:383:void onClick(android.view.View):85:85 -> onClick
-    1:39:boolean parseTextForLink(java.lang.String):210:248 -> parseTextForLink
+    1:187:void onClick(android.view.View):86:272 -> onClick
+    188:188:void onClick(android.view.View):89:89 -> onClick
+    189:373:void onClick(android.view.View):88:88 -> onClick
+    1:32:boolean parseTextForLink(java.lang.String):215:246 -> parseTextForLink
     1:1:void <init>(android.content.Context,android.util.AttributeSet,int):54:54 -> setArticleColor
     1:1:void setArticleColor(int):54 -> setArticleColor
     1:1:void setBinding(com.nick.mowen.linkpreview.databinding.PreviewBinding):27:27 -> setBinding
     1:1:void setClickListener(com.nick.mowen.linkpreview.listener.LinkClickListener):51:51 -> setClickListener
+    1:1:void <init>(android.content.Context,android.util.AttributeSet,int):60:60 -> setCurrentLink
+    1:1:void setCurrentLink(java.lang.String):60 -> setCurrentLink
     1:1:void setHideWhileLoading(boolean):57:57 -> setHideWhileLoading
-    1:5:void setLink(java.lang.String):259:263 -> setLink
+    1:5:void setLink(java.lang.String):257:261 -> setLink
     1:1:void setLoadListener(com.nick.mowen.linkpreview.listener.LinkListener):48:48 -> setLoadListener
-    1:91:void setPreviewData(com.nick.mowen.linkpreview.PreviewData):189:279 -> setPreviewData
+    1:86:void setPreviewData(com.nick.mowen.linkpreview.PreviewData):192:277 -> setPreviewData
     1:1:void <init>(android.content.Context,android.util.AttributeSet,int):45:45 -> setUrl
     1:1:void setUrl(java.lang.String):45 -> setUrl
 com.nick.mowen.linkpreview.view.LinkPreview$Companion -> com.nick.mowen.linkpreview.view.LinkPreview$Companion:
 # {"id":"sourceFile","fileName":"LinkPreview.kt"}
-    1:1:void <init>():267:267 -> <init>
+    1:1:void <init>():265:265 -> <init>
 com.nick.mowen.linkpreview.view.LinkPreview$WhenMappings -> com.nick.mowen.linkpreview.view.LinkPreview$WhenMappings:
 # {"id":"sourceFile","fileName":"LinkPreview.kt"}
 com.nick.mowen.linkpreview.view.LinkPreview$bindViews$2 -> com.nick.mowen.linkpreview.view.LinkPreview$a:
@@ -459,7 +468,7 @@ com.nick.mowen.linkpreview.view.LinkPreview$bindViews$2 -> com.nick.mowen.linkpr
     1:1:java.lang.Object invoke(java.lang.Object,java.lang.Object):0 -> invoke
     2:2:java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation):0:0 -> invoke
     2:2:java.lang.Object invoke(java.lang.Object,java.lang.Object):0 -> invoke
-    1:1:java.lang.Object invokeSuspend(java.lang.Object):113:113 -> invokeSuspend
+    1:1:java.lang.Object invokeSuspend(java.lang.Object):116:116 -> invokeSuspend
 com.nick.mowen.linkpreview.view.LinkPreview$setText$3 -> com.nick.mowen.linkpreview.view.LinkPreview$b:
 # {"id":"sourceFile","fileName":"LinkPreview.kt"}
     com.nick.mowen.linkpreview.view.LinkPreview this$0 -> b
@@ -469,5 +478,5 @@ com.nick.mowen.linkpreview.view.LinkPreview$setText$3 -> com.nick.mowen.linkprev
     1:1:java.lang.Object invoke(java.lang.Object,java.lang.Object):0 -> invoke
     2:2:java.lang.Object invoke(kotlinx.coroutines.CoroutineScope,kotlin.coroutines.Continuation):0:0 -> invoke
     2:2:java.lang.Object invoke(java.lang.Object,java.lang.Object):0 -> invoke
-    1:10:java.lang.Object invokeSuspend(java.lang.Object):164:164 -> invokeSuspend
-    11:18:java.lang.Object invokeSuspend(java.lang.Object):165:172 -> invokeSuspend
+    1:10:java.lang.Object invokeSuspend(java.lang.Object):167:167 -> invokeSuspend
+    11:18:java.lang.Object invokeSuspend(java.lang.Object):168:175 -> invokeSuspend
